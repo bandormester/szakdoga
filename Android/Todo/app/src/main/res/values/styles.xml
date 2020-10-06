@@ -1,0 +1,58 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="WhiteOutlinedButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/outlined_white_rounded_button</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/light_blue</item>
+    </style>
+
+    <style name="LightBlueOutlinedButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/outlined_blue_rounded_button</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="LightBlueButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/blue_rounded_button</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="WhiteEditText" parent="Widget.AppCompat.EditText">
+        <item name="background">@drawable/outlined_white_rounded_button</item>
+        <item name="android:textColor">@color/light_blue</item>
+        <item name="android:textSize">18sp</item>
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
+
+    <style name="LightBlueEditText" parent="Widget.AppCompat.EditText">
+        <item name="background">@drawable/outlined_blue_rounded_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="LightBlueTextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/light_blue</item>
+        <item name="android:textSize">20sp</item>
+        <item name="colorAccent">@color/light_blue</item>
+        <item name="colorControlNormal">@color/light_blue</item>
+        <item name="colorControlActivated">@color/light_blue</item>
+    </style>
+
+    <style name="WhiteTextLabel" parent="TextAppearance.AppCompat">
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+</resources>
