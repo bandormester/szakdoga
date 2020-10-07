@@ -1,14 +1,12 @@
-package hu.szurdok.todoapp
+package hu.szurdok.todoapp.ui.view.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.container.AppContainer
-import hu.szurdok.todoapp.container.TodoApplication
-import hu.szurdok.todoapp.ui.main.LoginFragment
-import hu.szurdok.todoapp.ui.main.RegisterFragment
-import hu.szurdok.todoapp.ui.main.UserProfileFragment
+import hu.szurdok.todoapp.TodoApplication
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     lateinit var appContainer : AppContainer
 

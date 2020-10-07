@@ -1,4 +1,4 @@
-package hu.szurdok.todoapp.ui.main
+package hu.szurdok.todoapp.ui.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -2,7 +2,7 @@ package hu.szurdok.todoapp.container
 
 import android.content.Context
 import androidx.room.Room
-import hu.szurdok.todoapp.container.factory.UserViewModelFactory
+import hu.szurdok.todoapp.factory.UserViewModelFactory
 import hu.szurdok.todoapp.data.UserDao
 import hu.szurdok.todoapp.data.UserDatabase
 import hu.szurdok.todoapp.data.repository.UserRepository

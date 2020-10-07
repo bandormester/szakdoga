@@ -1,5 +1,6 @@
 package hu.szurdok.todoapp.retrofit
 
+import hu.szurdok.todoapp.data.RegistrationStatus
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,5 +18,12 @@ interface LoginService {
         @Query("fullname") fullname : String,
         @Query("username") username : String,
         @Query("email") email : String,
-        @Query("password") password : String) : Call<String>
+        @Query("password") password : String) : Call<RegistrationStatus>
+
+    @POST("/user/register/nopic")
+    fun registerNoPic(
+        @Query("fullname") fullname : String,
+        @Query("username") username : String,
+        @Query("email") email : String,
+        @Query("password") password : String) : Call<RegistrationStatus>
 }

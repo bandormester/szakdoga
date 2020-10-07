@@ -1,4 +1,4 @@
-package hu.szurdok.todoapp.container.factory
+package hu.szurdok.todoapp.factory
 
 import hu.szurdok.todoapp.data.repository.UserRepository
 import hu.szurdok.todoapp.viewmodel.UserProfileViewModel

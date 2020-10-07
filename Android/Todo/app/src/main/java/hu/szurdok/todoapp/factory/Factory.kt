@@ -1,4 +1,4 @@
-package hu.szurdok.todoapp.container.factory
+package hu.szurdok.todoapp.factory
 
 interface Factory<T> {
     fun create() : T

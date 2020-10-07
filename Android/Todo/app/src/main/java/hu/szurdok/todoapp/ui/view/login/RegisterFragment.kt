@@ -1,19 +1,19 @@
-package hu.szurdok.todoapp.ui.main
+package hu.szurdok.todoapp.ui.view.login
 
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import hu.szurdok.todoapp.MainActivity
+import androidx.lifecycle.observe
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.viewmodel.LoginViewModel
 import kotlinx.android.synthetic.main.register_activity.*
@@ -30,10 +30,15 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = (activity as MainActivity).appContainer.getLoginContainer().loginViewModel
+        loginViewModel = (activity as LoginActivity).appContainer.getLoginContainer().loginViewModel
+
+        loginViewModel.registrationStatus.observe(viewLifecycleOwner){
+            Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+            if(it.isSuccessful) (activity as LoginActivity).backToLogin()
+        }
 
         btBack.setOnClickListener {
-            (activity as MainActivity).backToLogin()
+            (activity as LoginActivity).backToLogin()
         }
 
         btRegister.setOnClickListener {
@@ -48,7 +53,11 @@ class RegisterFragment : Fragment() {
             Log.d("ivReg", "Pressed")
             askCameraPermission()
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as LoginActivity).appContainer.releaseLoginContainer()
     }
 
     private fun askCameraPermission() {
@@ -68,14 +77,10 @@ class RegisterFragment : Fragment() {
 
         val bitmap = data!!.extras!!.get("data") as Bitmap
         ivRegister.setImageBitmap(bitmap)
-        loginViewModel.takePicture(bitmap)
+        loginViewModel.setPicture(bitmap)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if(requestCode == 101){
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 openCamera()
