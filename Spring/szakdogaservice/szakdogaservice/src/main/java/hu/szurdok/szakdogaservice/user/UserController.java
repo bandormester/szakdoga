@@ -1,5 +1,6 @@
 package hu.szurdok.szakdogaservice.user;
 
+import hu.szurdok.szakdogaservice.RegisterStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public @ResponseBody ResponseEntity<String> register(
+    public @ResponseBody ResponseEntity<RegisterStatus> register(
             @RequestBody byte[] picture,
             @RequestParam String fullname,
             @RequestParam String username,
@@ -35,5 +36,15 @@ public class UserController {
             @RequestParam String password
     ){
         return userService.register(picture, fullname, username, email, password);
+    }
+
+    @PostMapping("/register/nopic")
+    public @ResponseBody ResponseEntity<RegisterStatus> registerNoPic(
+            @RequestParam String fullname,
+            @RequestParam String username,
+            @RequestParam String email,
+            @RequestParam String password
+    ){
+        return userService.registerNoPic(fullname, username, email, password);
     }
 }

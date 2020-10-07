@@ -1,5 +1,6 @@
 package hu.szurdok.szakdogaservice.user;
 
+import hu.szurdok.szakdogaservice.RegisterStatus;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,9 +25,6 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    @PersistenceContext
-    EntityManager em;
-
     @Autowired
     UserRepository userRepository;
 
@@ -42,32 +40,38 @@ public class UserService {
         return 0;
     }
 
-    public ResponseEntity<String> register(byte[] picture, String fullname, String username, String email, String password) {
-            User newUser = new User(null, fullname, username, email, password, false);
+    public ResponseEntity<RegisterStatus> register(byte[] picture, String fullname, String username, String email, String password) {
+            User newUser = new User(null, fullname, username, email, password, true);
             try {
                 userRepository.save(newUser);
-            }catch(DataIntegrityViolationException e) {
-                System.out.println("Integrity");
-                return new ResponseEntity<String>("Username already exists", new HttpHeaders(),  HttpStatus.CONFLICT);
-                //return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
-            }
-            catch (DataAccessException e){
+            } catch(DataIntegrityViolationException e) {
+                return ResponseEntity.ok().body(new RegisterStatus(false, " Username already exists"));
+            } catch (DataAccessException e) {
                 System.out.println(e.toString());
-                return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Unable to connect to database");
+                return ResponseEntity.ok().body(new RegisterStatus(false, "Unable to access database"));
             }
 
-            if(picture != null){
-                try{
-                    BufferedImage image = ImageIO.read(new ByteArrayInputStream(picture));
-                    ImageIO.write(image, "JPG", new File("F:\\Git\\szakdoga\\Spring\\szakdogaservice\\pics\\"+username+".jpg"));
-                } catch (IOException e) {
-                    System.out.println("Upload");
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to upload image");
-                }
+            try{
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(picture));
+                ImageIO.write(image, "JPG", new File("F:\\Git\\szakdoga\\Spring\\szakdogaservice\\pics\\"+username+".jpg"));
+            } catch (IOException e) {
+                return ResponseEntity.ok().body(new RegisterStatus(false, "Unable to upload image"));
             }
 
-            System.out.println("Success");
-            return new ResponseEntity<String>("Registration successful", new HttpHeaders(),  HttpStatus.OK);
-            //return ResponseEntity.ok().body("Registration successful");
+            return ResponseEntity.ok().body(new RegisterStatus(true, "Registration successful"));
+    }
+
+    public ResponseEntity<RegisterStatus> registerNoPic(String fullname, String username, String email, String password) {
+        User newUser = new User(null, fullname, username, email, password, false);
+        try {
+            userRepository.save(newUser);
+        }catch(DataIntegrityViolationException e) {
+            return ResponseEntity.ok().body(new RegisterStatus(false, " Username already exists"));
+        }
+        catch (DataAccessException e){
+            System.out.println(e.toString());
+            return ResponseEntity.ok().body(new RegisterStatus(false, "Unable to access database"));
+        }
+        return ResponseEntity.ok().body(new RegisterStatus(true, "Registration successful"));
     }
 }
