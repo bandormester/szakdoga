@@ -36,4 +36,8 @@ class LoginViewModel (
         bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
         picture = stream.toByteArray()
     }
+
+    fun clearPic(){
+        picture = null
+    }
 }

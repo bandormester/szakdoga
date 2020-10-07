@@ -5,12 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import hu.szurdok.todoapp.data.RegistrationStatus
 import hu.szurdok.todoapp.retrofit.LoginService
 import okhttp3.MediaType
-import okhttp3.Request
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.Executor
 
 class LoginRepository (
     private val loginService : LoginService
@@ -32,7 +30,6 @@ class LoginRepository (
                 Log.d("Login", "onFailure")
             }
         })
-
         return true
     }
 
@@ -46,6 +43,7 @@ class LoginRepository (
             override fun onResponse(call: Call<RegistrationStatus>, response: Response<RegistrationStatus>) {
                 if (response.isSuccessful) {
                     status.value = response.body()
+                    Log.d("vm",response.body()!!.successful.toString())
                 }else{
                     Log.d("Register", response.body().toString())
                     Log.d("Register", response.code().toString())
@@ -57,7 +55,6 @@ class LoginRepository (
                 Log.d("Register", "Failed")
                 status.value = RegistrationStatus(false, "Unable to connect server")
             }
-
         })
     }
 
@@ -66,6 +63,7 @@ class LoginRepository (
             override fun onResponse(call: Call<RegistrationStatus>, response: Response<RegistrationStatus>) {
                 if (response.isSuccessful) {
                     status.value = response.body()
+                    Log.d("vm",response.body()!!.successful.toString())
                 }else{
                     Log.d("Register", response.body().toString())
                     Log.d("Register", response.code().toString())

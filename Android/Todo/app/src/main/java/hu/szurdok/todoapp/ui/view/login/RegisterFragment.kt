@@ -30,11 +30,12 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = (activity as LoginActivity).appContainer.getLoginContainer().loginViewModel
+        loginViewModel = (activity as LoginActivity).loginViewModel
 
         loginViewModel.registrationStatus.observe(viewLifecycleOwner){
             Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
-            if(it.isSuccessful) (activity as LoginActivity).backToLogin()
+            Log.d("vm", it.successful.toString())
+            if(it.successful) (activity as LoginActivity).backToLogin()
         }
 
         btBack.setOnClickListener {
@@ -57,7 +58,7 @@ class RegisterFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as LoginActivity).appContainer.releaseLoginContainer()
+        (activity as LoginActivity).loginViewModel.clearPic()
     }
 
     private fun askCameraPermission() {
