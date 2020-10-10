@@ -1,5 +1,6 @@
 package hu.szurdok.szakdogaservice.user;
 
+import hu.szurdok.szakdogaservice.ApiToken;
 import hu.szurdok.szakdogaservice.RegisterStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,8 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public @ResponseBody Integer tryLogin(
+    public @ResponseBody
+    ApiToken tryLogin(
             @RequestParam String username,
             @RequestParam String password
     ){
@@ -33,18 +35,9 @@ public class UserController {
             @RequestParam String fullname,
             @RequestParam String username,
             @RequestParam String email,
-            @RequestParam String password
+            @RequestParam String password,
+            @RequestParam Boolean hasPicture
     ){
-        return userService.register(picture, fullname, username, email, password);
-    }
-
-    @PostMapping("/register/nopic")
-    public @ResponseBody ResponseEntity<RegisterStatus> registerNoPic(
-            @RequestParam String fullname,
-            @RequestParam String username,
-            @RequestParam String email,
-            @RequestParam String password
-    ){
-        return userService.registerNoPic(fullname, username, email, password);
+        return userService.register(picture, fullname, username, email, password, hasPicture);
     }
 }
