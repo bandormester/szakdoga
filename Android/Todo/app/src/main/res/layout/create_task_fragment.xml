@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_blue"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etCreateTaskLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            style="@style/UnderlinedWhiteEditText"
+            android:hint="@string/label"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCrucial"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cvImportant"
+            app:layout_constraintTop_toBottomOf="@id/etCreateTaskLabel">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:backgroundTint="@android:color/holo_red_dark"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvCrucial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/crucial"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/cvCrucial"
+            app:layout_constraintEnd_toEndOf="@+id/cvCrucial"
+            app:layout_constraintTop_toBottomOf="@+id/cvCrucial" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvImportant"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:contentPadding="3dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/cvRegular"
+            app:layout_constraintStart_toEndOf="@id/cvCrucial"
+            app:layout_constraintTop_toTopOf="@id/cvCrucial">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    android:backgroundTint="@android:color/holo_orange_light"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvImportant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/important"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/cvImportant"
+            app:layout_constraintStart_toStartOf="@id/cvImportant"
+            app:layout_constraintTop_toBottomOf="@+id/cvImportant" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvRegular"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cvImportant"
+            app:layout_constraintTop_toTopOf="@id/cvImportant">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="10dp"
+                android:backgroundTint="@android:color/holo_green_light"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/regular"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/cvRegular"
+            app:layout_constraintStart_toStartOf="@id/cvRegular"
+            app:layout_constraintTop_toBottomOf="@+id/cvRegular" />
+
+        <TextView
+            android:id="@+id/tvCreateDescription"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingStart="8dp"
+            android:text="+ Add description"
+            style="@style/UnderlinedWhiteTextView"
+            app:layout_constraintTop_toBottomOf="@id/tvCrucial"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etCreateDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:hint="asd"
+            style="@style/LightBlueEditText"
+            app:layout_constraintTop_toBottomOf="@id/tvCreateDescription"/>
+
+        <TextView
+            android:id="@+id/tvCreatePlace"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="120dp"
+            android:layout_height="wrap_content"
+            android:text="+ Add place"
+            android:layout_marginTop="20dp"
+            style="@style/UnderlinedWhiteTextView"
+            app:layout_constraintTop_toBottomOf="@id/etCreateDescription"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/llCreatePlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvCreatePlace">
+
+            <TextView
+                android:id="@+id/tvCreatePlaceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginStart="20dp"
+                android:text="asd"/>
+
+            <Button
+                android:id="@+id/btCreatePlace"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textSize="16sp"
+                android:paddingHorizontal="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="Show Map"
+                style="@style/LightBlueOutlinedButton"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCreatePerson"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="120dp"
+            android:layout_height="wrap_content"
+            android:text="+ Add person"
+            android:layout_marginTop="20dp"
+            style="@style/UnderlinedWhiteTextView"
+            app:layout_constraintTop_toBottomOf="@id/llCreatePlace"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/llCreatePerson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvCreatePerson">
+            <ListView
+                android:id="@+id/lvCreatePerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btCreatePerson"
+                style="@style/LightBlueOutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:paddingHorizontal="10dp"
+                android:text="Show Map"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCreateTime"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="120dp"
+            android:layout_height="wrap_content"
+            android:text="+ Add deadline"
+            android:layout_marginTop="20dp"
+            style="@style/UnderlinedWhiteTextView"
+            app:layout_constraintTop_toBottomOf="@id/llCreatePerson"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/llCreateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvCreateTime">
+            <TextView
+            android:id="@+id/tvCreateTimeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+            android:text="asd"/>
+
+            <Button
+                android:id="@+id/btCreateTime"
+                style="@style/LightBlueOutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:paddingHorizontal="10dp"
+                android:text="Change"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCreateChecklist"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="120dp"
+            android:layout_height="wrap_content"
+            android:text="+ Add checklist"
+            android:layout_marginTop="20dp"
+            style="@style/UnderlinedWhiteTextView"
+            app:layout_constraintTop_toBottomOf="@id/llCreateTime"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/llCreateChecklist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tvCreateChecklist">
+            <ListView
+                android:id="@+id/lvCreateChecklist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btCreateChecklist"
+                style="@style/LightBlueOutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:paddingHorizontal="10dp"
+                android:text="Add item"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

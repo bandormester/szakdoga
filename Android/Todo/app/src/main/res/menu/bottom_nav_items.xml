@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/create_nav_button"
+        android:title="@string/create"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item android:id="@+id/group_nav_button"
+        android:title="@string/group"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item android:id="@+id/tasks_nav_button"
+        android:title="@string/tasks"
+        android:icon="@drawable/ic_launcher_foreground" />
+</menu>

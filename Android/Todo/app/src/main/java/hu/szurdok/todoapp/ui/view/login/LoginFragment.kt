@@ -1,13 +1,16 @@
 package hu.szurdok.todoapp.ui.view.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import hu.szurdok.todoapp.R
-import hu.szurdok.todoapp.viewmodel.LoginViewModel
+import hu.szurdok.todoapp.ui.view.main.MainActivity
+import hu.szurdok.todoapp.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.login_activity.*
 
 class LoginFragment : Fragment(){
@@ -21,8 +24,21 @@ class LoginFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = (activity as LoginActivity).appContainer.getLoginContainer().loginViewModel
+        loginViewModel = (activity as LoginActivity).loginContainer.loginViewModel
 
+        loginViewModel.token.observe(viewLifecycleOwner){
+            if(it.id != 0){
+                val intent = Intent(activity, MainActivity::class.java).apply {
+                    putExtra("api-token", it)
+                }
+                startActivity(intent)
+            }
+            else {
+                if(it.token.isNotEmpty()) Toast.makeText(activity, it.token, Toast.LENGTH_LONG).show()
+            }
+        }
+
+/*
 //        etUsername.addTextChangedListener(object : TextWatcher  {
 //            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 //
@@ -50,7 +66,7 @@ class LoginFragment : Fragment(){
 //                }
 //            }
 //        })
-//       etPassword.error = " asd "
+//       etPassword.error = " asd "*/
 
         btLogin.setOnClickListener {
             if(etUsername.text.isNullOrEmpty() || etPassword.text.isNullOrEmpty()) {

@@ -1,6 +1,6 @@
 package hu.szurdok.todoapp.retrofit
 
-import hu.szurdok.todoapp.data.User
+import hu.szurdok.todoapp.data.user.User
 import retrofit2.Call
 import retrofit2.http.GET
 

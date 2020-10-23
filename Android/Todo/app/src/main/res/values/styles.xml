@@ -26,20 +26,20 @@
     </style>
 
     <style name="WhiteEditText" parent="Widget.AppCompat.EditText">
-        <item name="background">@drawable/outlined_white_rounded_button</item>
         <item name="android:textColor">@color/light_blue</item>
         <item name="android:textSize">18sp</item>
-        <item name="backgroundTint">@color/light_blue</item>
+        <item name="android:backgroundTint">@color/light_blue</item>
+        <item name="hintTextColor">@color/light_blue</item>
     </style>
 
     <style name="LightBlueEditText" parent="Widget.AppCompat.EditText">
-        <item name="background">@drawable/outlined_blue_rounded_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
-        <item name="backgroundTint">@color/white</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
 
-    <style name="LightBlueTextLabel" parent="TextAppearance.AppCompat">
+    <style name="LightBlueTextLabel" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColorHint">@color/light_blue</item>
         <item name="android:textSize">20sp</item>
         <item name="colorAccent">@color/light_blue</item>
@@ -47,7 +47,7 @@
         <item name="colorControlActivated">@color/light_blue</item>
     </style>
 
-    <style name="WhiteTextLabel" parent="TextAppearance.AppCompat">
+    <style name="WhiteTextLabel" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:textColorHint">@color/white</item>
         <item name="android:textSize">20sp</item>
         <item name="colorAccent">@color/white</item>
@@ -55,4 +55,15 @@
         <item name="colorControlActivated">@color/white</item>
     </style>
 
+    <style name="UnderlinedWhiteTextView" parent="Widget.AppCompat.TextView">
+        <item name="drawableBottomCompat">@drawable/textview_underline</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="UnderlinedWhiteEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
 </resources>

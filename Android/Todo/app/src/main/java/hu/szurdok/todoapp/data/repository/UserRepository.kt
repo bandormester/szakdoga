@@ -2,8 +2,8 @@ package hu.szurdok.todoapp.data.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import hu.szurdok.todoapp.data.User
-import hu.szurdok.todoapp.data.UserDao
+import hu.szurdok.todoapp.data.user.User
+import hu.szurdok.todoapp.data.user.UserDao
 import hu.szurdok.todoapp.retrofit.UserService
 import java.util.concurrent.Executor
 import javax.inject.Singleton

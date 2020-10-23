@@ -3,14 +3,12 @@ package hu.szurdok.todoapp.ui.view.login
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hu.szurdok.todoapp.R
-import hu.szurdok.todoapp.container.AppContainer
 import hu.szurdok.todoapp.TodoApplication
-import hu.szurdok.todoapp.viewmodel.LoginViewModel
+import hu.szurdok.todoapp.container.LoginContainer
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var appContainer : AppContainer
-    lateinit var loginViewModel : LoginViewModel
+    lateinit var loginContainer : LoginContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +19,12 @@ class LoginActivity : AppCompatActivity() {
                     .commitNow()
         }
 
-        appContainer = (application as TodoApplication).appContainer
-        appContainer.setupContainer(baseContext)
-        loginViewModel = appContainer.getLoginContainer().loginViewModel
+        loginContainer = (application as TodoApplication).appContainer.getLoginContainer()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        appContainer.releaseLoginContainer()
+        (application as TodoApplication).appContainer.releaseLoginContainer()
     }
 
     fun toRegisterFragment(){

@@ -1,4 +1,4 @@
-package hu.szurdok.todoapp.data
+package hu.szurdok.todoapp.data.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

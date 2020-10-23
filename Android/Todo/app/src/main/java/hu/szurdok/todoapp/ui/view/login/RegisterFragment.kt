@@ -12,15 +12,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import hu.szurdok.todoapp.R
-import hu.szurdok.todoapp.viewmodel.LoginViewModel
+import hu.szurdok.todoapp.viewmodel.login.RegisterViewModel
 import kotlinx.android.synthetic.main.register_activity.*
 
 class RegisterFragment : Fragment() {
 
-    private lateinit var loginViewModel : LoginViewModel
+    private lateinit var registerViewModel : RegisterViewModel
+    private var hasPicture = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -30,11 +32,10 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loginViewModel = (activity as LoginActivity).loginViewModel
+        registerViewModel = (activity as LoginActivity).loginContainer.registerViewModelFactory.create()
 
-        loginViewModel.registrationStatus.observe(viewLifecycleOwner){
-            Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
-            Log.d("vm", it.successful.toString())
+        registerViewModel.registrationStatus.observe(viewLifecycleOwner){
+            if(it.message.isNotEmpty()) Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
             if(it.successful) (activity as LoginActivity).backToLogin()
         }
 
@@ -43,22 +44,30 @@ class RegisterFragment : Fragment() {
         }
 
         btRegister.setOnClickListener {
-            loginViewModel.register(
-                etRegFullname.text.toString(),
-                etRegUsername.text.toString(),
-                etRegEmail.text.toString(),
-                etRegPassword.text.toString())
+            if(validateInput()){
+                registerViewModel.register(
+                    ivRegister.drawToBitmap(),
+                    etRegFullname.text.toString(),
+                    etRegUsername.text.toString(),
+                    etRegEmail.text.toString(),
+                    etRegPassword.text.toString(),
+                    hasPicture)
+            }
+            else{
+                Toast.makeText(activity, "Fill all boxes !", Toast.LENGTH_LONG).show()
+            }
         }
 
         ivRegister.setOnClickListener{
-            Log.d("ivReg", "Pressed")
-            askCameraPermission()
+            if(hasPicture){
+                ivRegister.setImageResource(R.drawable.ic_launcher_background)
+            }
+            else {
+                Log.d("ivReg", "Pressed")
+                askCameraPermission()
+            }
+            hasPicture = !hasPicture
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as LoginActivity).loginViewModel.clearPic()
     }
 
     private fun askCameraPermission() {
@@ -78,7 +87,6 @@ class RegisterFragment : Fragment() {
 
         val bitmap = data!!.extras!!.get("data") as Bitmap
         ivRegister.setImageBitmap(bitmap)
-        loginViewModel.setPicture(bitmap)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -92,5 +100,13 @@ class RegisterFragment : Fragment() {
     private fun openCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, 0)
+    }
+
+    private fun validateInput() : Boolean{
+        return etRegFullname.text.isNotEmpty()
+                && etRegUsername.text.isNotEmpty()
+                && etRegEmail.text.isNotEmpty()
+                && etRegPassword.text.isNotEmpty()
+                //&& etRegRepeatPassword.text == etRegPassword.text
     }
 }

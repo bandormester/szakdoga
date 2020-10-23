@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Integer> {
-    List<Group> findByOwnerId(Integer OwnerId);
+public interface GroupRepository extends JpaRepository<TodoGroup, Integer> {
+    List<TodoGroup> findByOwnerId(Integer ownerId);
 }

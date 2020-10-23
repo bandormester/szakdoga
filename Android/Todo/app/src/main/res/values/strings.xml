@@ -7,4 +7,13 @@
     <string name="back">Back</string>
     <string name="fullname">Fullname</string>
     <string name="email">Email</string>
+    <string name="create">Create</string>
+    <string name="group">Group</string>
+    <string name="tasks">Tasks</string>
+    <string name="members">Members</string>
+    <string name="invite">Invite</string>
+    <string name="important">Important</string>
+    <string name="crucial">Crucial</string>
+    <string name="regular">Regular</string>
+    <string name="label">Label</string>
 </resources>

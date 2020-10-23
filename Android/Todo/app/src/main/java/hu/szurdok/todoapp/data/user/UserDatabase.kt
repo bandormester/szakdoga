@@ -1,4 +1,4 @@
-package hu.szurdok.todoapp.data
+package hu.szurdok.todoapp.data.user
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

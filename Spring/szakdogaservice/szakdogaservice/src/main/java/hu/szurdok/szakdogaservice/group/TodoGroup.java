@@ -2,14 +2,16 @@ package hu.szurdok.szakdogaservice.group;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @AllArgsConstructor
-@Table(name = "groups")
-public class Group {
+@NoArgsConstructor
+@Table(name = "todo_groups")
+public class TodoGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,7 +23,7 @@ public class Group {
 
     @Basic
     @Column(name = "owner_id")
-    private String ownerId;
+    private Integer ownerId;
 
     @Basic
     @Column(name = "join_code")
