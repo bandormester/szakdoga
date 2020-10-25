@@ -46,7 +46,7 @@ class MainContainer(app: TodoApplication) {
 
     val groupDetailsViewModelFactory = GroupDetailsViewModelFactory(groupDetailsRepository)
 
-    private val createTaskRepository = CreateTaskRepository(taskService)
+    private val createTaskRepository = CreateTaskRepository(taskService, groupService, executor)
 
     val createTaskViewModelFactory = CreateTaskViewModelFactory(createTaskRepository)
 }

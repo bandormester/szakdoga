@@ -1,6 +1,7 @@
 package hu.szurdok.todoapp.retrofit
 
 import hu.szurdok.todoapp.data.RegistrationStatus
+import hu.szurdok.todoapp.data.task.Task
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -11,7 +12,7 @@ interface TaskService {
 
     @POST("/task")
     fun createTask(
-        @Body task : RequestBody,
+        @Body task : Task,
         @Query("hasChecklist") hasChecklist : Boolean,
         @Query("hasAssignee") hasAssignee : Boolean) : Call<RegistrationStatus>
 

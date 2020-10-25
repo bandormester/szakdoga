@@ -7,6 +7,7 @@ import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.TodoApplication
 import hu.szurdok.todoapp.container.MainContainer
 import hu.szurdok.todoapp.data.ApiToken
+import hu.szurdok.todoapp.ui.view.main.create.CreateTaskFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
