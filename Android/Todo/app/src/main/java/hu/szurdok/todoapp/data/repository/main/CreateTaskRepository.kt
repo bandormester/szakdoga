@@ -33,21 +33,24 @@ class CreateTaskRepository(
     }
 
     fun createTask(task : Task, hasAssignee: Boolean, hasChecklist: Boolean) {
-        //taskService.createTask(task, hasChecklist, hasAssignee).enqueue(object : Callback<RegistrationStatus>{
-        //    override fun onResponse(
-        //        call: Call<RegistrationStatus>,
-        //        response: Response<RegistrationStatus>
-        //    ) {
-        //        if(response.isSuccessful){
-        //
-        //        }
-        //    }
-//
-        //    override fun onFailure(call: Call<RegistrationStatus>, t: Throwable) {
-        //
-        //    }
-//
-        //})
+        taskService.createTask(task, hasAssignee, hasChecklist).enqueue(object : Callback<RegistrationStatus>{
+            override fun onResponse(
+                call: Call<RegistrationStatus>,
+                response: Response<RegistrationStatus>
+            ) {
+                if(response.isSuccessful){
+                    Log.d("retrofit", response.message())
+                    Log.d("retrofit", response.code().toString())
+                    Log.d("retrofit", response.body()!!.message)
+                }
+            }
+
+            override fun onFailure(call: Call<RegistrationStatus>, t: Throwable) {
+                Log.d("retrofit", t.message?:" NO MESSAGE ")
+                Log.d("retrofit", t.cause.toString())
+            }
+
+        })
 
         Log.d("retro", task.toString())
     }

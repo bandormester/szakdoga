@@ -11,6 +11,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -58,21 +59,15 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         createTaskViewModel.prepareTask()
 
         cvImportant.setOnClickListener {
-            resetImportance()
-            cvImportant.setContentPadding(border,border,border,border)
-            createTaskViewModel.setImportance(Importance.IMPORTANT)
+            handleImportanceSwitch(it as CardView)
         }
 
         cvCrucial.setOnClickListener {
-            resetImportance()
-            cvCrucial.setContentPadding(border,border,border,border)
-            createTaskViewModel.setImportance(Importance.CRUCIAL)
+            handleImportanceSwitch(it as CardView)
         }
 
         cvRegular.setOnClickListener {
-            resetImportance()
-            cvRegular.setContentPadding(border,border,border,border)
-            createTaskViewModel.setImportance(Importance.REGULAR)
+            handleImportanceSwitch(it as CardView)
         }
 
         //Description
@@ -102,9 +97,9 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         }
 
         //Deadline TODO
-        tvCreateTime.setOnClickListener {
-            createTaskViewModel.deadlineAdded = showInputView(llCreateTime, createTaskViewModel.deadlineAdded)
-        }
+        //tvCreateTime.setOnClickListener {
+        //    createTaskViewModel.deadlineAdded = showInputView(llCreateTime, createTaskViewModel.deadlineAdded)
+        //}
 
         //Checklist
         if(!createTaskViewModel.checklistAdded) llCreateChecklist.visibility = GONE
@@ -123,6 +118,17 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         btFinalizeTask.setOnClickListener {
             createTaskViewModel.createTask()
         }
+    }
+
+    private fun handleImportanceSwitch(view : CardView){
+        resetImportance()
+        view.setContentPadding(border,border,border,border)
+        var importance = Importance.IMPORTANT
+        when(view){
+            cvCrucial -> importance = Importance.CRUCIAL
+            cvRegular -> importance = Importance.REGULAR
+        }
+        createTaskViewModel.setImportance(importance)
     }
 
     private fun setupChecklistAdding(){

@@ -13,7 +13,8 @@ interface TaskService {
     @POST("/task")
     fun createTask(
         @Body task : Task,
-        @Query("hasChecklist") hasChecklist : Boolean,
-        @Query("hasAssignee") hasAssignee : Boolean) : Call<RegistrationStatus>
+        @Query("hasAssignee") hasAssignee : Boolean,
+        @Query("hasChecklist") hasChecklist : Boolean
+    ) : Call<RegistrationStatus>
 
 }

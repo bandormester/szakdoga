@@ -72,7 +72,7 @@ class CreateTaskViewModel(
     }
 
     fun prepareTask(){
-        newTask = Task(0,"",Importance.IMPORTANT,"",0.0,0.0,0.0, arrayListOf(), arrayListOf())
+        newTask = Task(0,token.id, groupId,"",Importance.IMPORTANT,"",0.0,0.0, arrayListOf(), arrayListOf())
     }
 
     fun setDescription(words : String){
