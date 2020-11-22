@@ -1,4 +1,4 @@
-package hu.szurdok.szakdogaservice.user;
+package hu.szurdok.szakdogaservice.enitites;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,30 +8,30 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
+@NoArgsConstructor
+@Table(name = "todo_groups")
+public class TodoGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
     @Basic
-    @Column(name = "full_name")
-    private String fullName;
+    @Column(name = "name")
+    private String name;
 
     @Basic
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "owner_id")
+    private Integer ownerId;
 
     @Basic
-    @Column(name = "email")
-    private String email;
+    @Column(name = "description")
+    private String description;
 
     @Basic
-    @Column(name = "password")
-    private String password;
+    @Column(name = "join_code")
+    private String joinCode;
 
     @Basic
     @Column(name = "has_picture")

@@ -1,7 +1,9 @@
-package hu.szurdok.szakdogaservice.user;
+package hu.szurdok.szakdogaservice.controllers;
 
-import hu.szurdok.szakdogaservice.ApiToken;
-import hu.szurdok.szakdogaservice.RegisterStatus;
+import hu.szurdok.szakdogaservice.misc.ApiToken;
+import hu.szurdok.szakdogaservice.misc.RegisterStatus;
+import hu.szurdok.szakdogaservice.enitites.User;
+import hu.szurdok.szakdogaservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
-package hu.szurdok.szakdogaservice.group;
+package hu.szurdok.szakdogaservice.repository;
 
+import hu.szurdok.szakdogaservice.enitites.TodoGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

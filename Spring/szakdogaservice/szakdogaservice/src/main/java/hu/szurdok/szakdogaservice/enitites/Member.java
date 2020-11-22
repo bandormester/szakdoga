@@ -1,4 +1,4 @@
-package hu.szurdok.szakdogaservice;
+package hu.szurdok.szakdogaservice.enitites;
 
 import javax.persistence.*;
 import java.io.Serializable;

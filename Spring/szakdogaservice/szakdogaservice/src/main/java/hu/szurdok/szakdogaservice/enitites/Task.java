@@ -1,5 +1,8 @@
-package hu.szurdok.szakdogaservice.task;
+package hu.szurdok.szakdogaservice.enitites;
 
+import hu.szurdok.szakdogaservice.misc.Importance;
+import hu.szurdok.szakdogaservice.dto.TaskDto;
+import hu.szurdok.szakdogaservice.misc.TaskState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,6 +50,11 @@ public class Task {
     private Double lon;
 
     @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private TaskState taskState;
+
+    @Basic
     @Column(name = "has_assignee")
     private Boolean hasAssignee;
 
@@ -54,15 +62,15 @@ public class Task {
     @Column(name = "has_checklist")
     private Boolean hasChecklist;
 
-    Task(TaskDao taskDao, Boolean hasAssignee, Boolean hasChecklist){
-        id = taskDao.getId();
-        ownerId = taskDao.getOwnerId();
-        groupId = taskDao.getGroupId();
-        label = taskDao.getLabel();
-        importance = taskDao.getImportance();
-        description = taskDao.getDescription();
-        lat = taskDao.getLat();
-        lon = taskDao.getLon();
+    public Task(TaskDto taskDto, Boolean hasAssignee, Boolean hasChecklist){
+        id = taskDto.getId();
+        ownerId = taskDto.getOwnerId();
+        groupId = taskDto.getGroupId();
+        label = taskDto.getLabel();
+        importance = taskDto.getImportance();
+        description = taskDto.getDescription();
+        lat = taskDto.getLat();
+        lon = taskDto.getLon();
         this.hasAssignee = hasAssignee;
         this.hasChecklist = hasChecklist;
     }

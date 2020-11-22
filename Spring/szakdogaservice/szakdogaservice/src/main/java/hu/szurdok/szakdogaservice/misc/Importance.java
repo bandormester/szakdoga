@@ -1,4 +1,4 @@
-package hu.szurdok.szakdogaservice.task;
+package hu.szurdok.szakdogaservice.misc;
 
 public enum Importance {
     CRUCIAL,

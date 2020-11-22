@@ -1,4 +1,4 @@
-package hu.szurdok.szakdogaservice.task;
+package hu.szurdok.szakdogaservice.enitites;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

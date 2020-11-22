@@ -1,15 +1,26 @@
-package hu.szurdok.szakdogaservice.group;
+package hu.szurdok.szakdogaservice.service;
 
-import hu.szurdok.szakdogaservice.user.User;
+import hu.szurdok.szakdogaservice.enitites.TodoGroup;
+import hu.szurdok.szakdogaservice.enitites.User;
+import hu.szurdok.szakdogaservice.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,5 +82,46 @@ public class GroupService {
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Group not found");
         }
+    }
+
+    public ResponseEntity<String> createGroup(byte[] picture, String groupName, Integer ownerId, String description, String joinCode, Boolean hasPicture) {
+        TodoGroup group = new TodoGroup(null, groupName, ownerId, description, joinCode, hasPicture);
+
+        try {
+            groupRepository.save(group);
+        } catch(DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( "Group name already exists");
+        } catch (DataAccessException e) {
+            System.out.println(e.toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to access database");
+        }
+
+        if(hasPicture)
+            try{
+                BufferedImage image = ImageIO.read(new ByteArrayInputStream(picture));
+                ImageIO.write(image, "JPG", new File("F:\\Git\\szakdoga\\Spring\\szakdogaservice\\group-pics\\"+groupName+".jpg"));
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to upload image");
+            }
+
+        return ResponseEntity.ok().body("Registration successful");
+    }
+
+    public ResponseEntity<byte[]> getPicture(Integer groupId) {
+        Optional<TodoGroup> group = groupRepository.findById(groupId);
+        System.out.println("Pictured");
+        try {
+            if (group.isPresent()) {
+                System.out.println("Pictured");
+                ClassPathResource img = new ClassPathResource("pics/" + group.get().getName() + ".jpg");
+                byte[] bytes = StreamUtils.copyToByteArray(img.getInputStream());
+                return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
+            }
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 }
