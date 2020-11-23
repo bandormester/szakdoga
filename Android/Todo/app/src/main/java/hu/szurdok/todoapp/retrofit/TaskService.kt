@@ -1,12 +1,10 @@
 package hu.szurdok.todoapp.retrofit
 
-import hu.szurdok.todoapp.data.RegistrationStatus
-import hu.szurdok.todoapp.data.task.Task
-import okhttp3.RequestBody
+import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
+import hu.szurdok.todoapp.data.models.Task
+import hu.szurdok.todoapp.data.models.TaskCard
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TaskService {
 
@@ -17,4 +15,31 @@ interface TaskService {
         @Query("hasChecklist") hasChecklist : Boolean
     ) : Call<RegistrationStatus>
 
+    @GET("/task/{userId}")
+    fun getMyTasks(
+        @Path("userId") userId : Int,
+        @Query("groupId") groupId : Int
+    ) : Call<List<TaskCard>>
+
+    @GET("/task")
+    fun getTasks(
+        @Query("groupId") groupId : Int
+    ) : Call<List<TaskCard>>
+
+    @GET("/task/{userId}/done")
+    fun getDoneTasks(
+        @Path("userId") userId : Int,
+        @Query("groupId") groupId : Int
+    ) : Call<List<TaskCard>>
+
+    @GET("/task/id/{taskId}")
+    fun getTaskById(
+        @Path("taskId") taskId : Int
+    ) : Call<Task>
+
+    @PUT("/task/check/{checkId}")
+    fun checkItem(
+        @Path("checkId") checkId : Int,
+        @Query("isChecked") isChecked : Boolean
+    ) : Call<Void>
 }

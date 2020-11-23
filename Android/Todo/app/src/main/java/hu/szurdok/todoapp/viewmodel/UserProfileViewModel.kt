@@ -1,7 +1,7 @@
 package hu.szurdok.todoapp.viewmodel
 
 import androidx.lifecycle.*
-import hu.szurdok.todoapp.data.user.User
+import hu.szurdok.todoapp.data.models.User
 import hu.szurdok.todoapp.data.repository.UserRepository
 
 class UserProfileViewModel(

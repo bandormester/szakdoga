@@ -3,7 +3,7 @@ package hu.szurdok.todoapp.viewmodel.login
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import hu.szurdok.todoapp.data.RegistrationStatus
+import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
 import hu.szurdok.todoapp.data.repository.login.RegisterRepositry
 import java.io.ByteArrayOutputStream
 

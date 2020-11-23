@@ -1,0 +1,96 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.main.task.TaskDetailsActivity"
+    android:background="@color/light_blue">
+
+   <TextView
+       android:id="@+id/tvLabel"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       style="@style/TaskLabel"
+       android:backgroundTint="@color/regular"
+       android:textSize="24dp"
+       android:layout_margin="10dp"
+       android:text="asd"/>
+
+   <ScrollView
+       android:id="@+id/scrollView"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       app:layout_constraintTop_toBottomOf="@id/tvLabel"
+       app:layout_constraintBottom_toTopOf="@id/btFinishTask"
+       android:layout_marginTop="20dp"
+       android:layout_marginBottom="15dp"
+       android:layout_marginHorizontal="12dp">
+
+      <LinearLayout
+          android:id="@+id/llInflateHolder"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+              android:id="@+id/tvDescription"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:layout_constraintTop_toBottomOf="@+id/scrollView"
+              android:layout_marginHorizontal="12dp"
+              android:visibility="gone"
+              android:layout_marginTop="20dp"
+              style="@style/DescriptionText"
+              android:textSize="20dp"
+              android:gravity="center_horizontal"
+              android:padding="4dp"
+              android:lineSpacingMultiplier="1.1"
+              android:textColor="@color/grey"
+              android:text="Lorem ipsum dolor sitorem ipsum dolor sit ametr varius ullamcorper. Fusce a amet, consectetur adipiscing elit. Pellentesque felis turpis, ultricies ut luctus ut, semper ut massa. Pellentesque ullamcorper varius ullamcorper. Fusce a"
+              />
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rvAssignees"
+              android:visibility="gone"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="12dp"
+              android:layout_marginTop="20dp"/>
+
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/rvChecklist"
+              android:visibility="gone"
+              android:layout_marginHorizontal="12dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"/>
+      </LinearLayout>
+
+   </ScrollView>
+
+   <Button
+       android:id="@+id/btFinishTask"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginVertical="20dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toStartOf="@id/btCancelTask"
+       app:layout_constraintBottom_toBottomOf="parent"
+       android:background="@drawable/button_finish_task"
+       android:textColor="@color/regular"
+       android:text="Finish"/>
+
+   <Button
+       android:id="@+id/btCancelTask"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="@id/btFinishTask"
+       app:layout_constraintStart_toEndOf="@id/btFinishTask"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:background="@drawable/button_cancel_task"
+       android:textColor="@color/crucial"
+       android:text="Cancel"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>

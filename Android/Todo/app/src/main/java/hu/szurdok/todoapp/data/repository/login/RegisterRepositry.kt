@@ -2,7 +2,7 @@ package hu.szurdok.todoapp.data.repository.login
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import hu.szurdok.todoapp.data.RegistrationStatus
+import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
 import hu.szurdok.todoapp.retrofit.LoginService
 import okhttp3.MediaType
 import okhttp3.RequestBody

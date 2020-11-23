@@ -3,10 +3,10 @@ package hu.szurdok.todoapp.data.repository.main
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import hu.szurdok.todoapp.data.ApiToken
-import hu.szurdok.todoapp.data.group.Group
-import hu.szurdok.todoapp.data.group.GroupDao
-import hu.szurdok.todoapp.data.user.User
+import hu.szurdok.todoapp.data.models.misc.ApiToken
+import hu.szurdok.todoapp.data.models.Group
+import hu.szurdok.todoapp.data.room.GroupDao
+import hu.szurdok.todoapp.data.models.User
 import hu.szurdok.todoapp.retrofit.GroupService
 import retrofit2.Call
 import retrofit2.Callback

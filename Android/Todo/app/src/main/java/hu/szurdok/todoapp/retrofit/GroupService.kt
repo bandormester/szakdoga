@@ -1,12 +1,10 @@
 package hu.szurdok.todoapp.retrofit
 
-import hu.szurdok.todoapp.data.group.Group
-import hu.szurdok.todoapp.data.user.User
+import hu.szurdok.todoapp.data.models.Group
+import hu.szurdok.todoapp.data.models.User
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface GroupService {
     @GET("/group/user/{userId}")
@@ -23,4 +21,19 @@ interface GroupService {
         @Path("groupId") groupId : Int,
         @Query("removedId") removedId : Int,
         @Query("userId") userId : Int) : Call<String>
+
+    @POST("/group")
+    fun createGroup(
+        @Body picture : RequestBody,
+        @Query("groupName") groupName : String,
+        @Query("ownerId") ownerId : Int,
+        @Query("description") description : String,
+        @Query("joinCode") joinCode : String,
+        @Query("hasPicture") hasPicture : Boolean
+        ) : Call<String>
+
+    @GET("/groupd/{groupId/pic")
+    fun getPicture(
+        @Path("groupId") groupId: Int
+    ) : Call<ByteArray>
 }

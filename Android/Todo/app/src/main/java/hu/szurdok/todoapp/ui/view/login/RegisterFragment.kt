@@ -1,5 +1,6 @@
 package hu.szurdok.todoapp.ui.view.login
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -43,10 +44,10 @@ class RegisterFragment : Fragment() {
             (activity as LoginActivity).backToLogin()
         }
 
-        btRegister.setOnClickListener {
+        btCreate.setOnClickListener {
             if(validateInput()){
                 registerViewModel.register(
-                    ivRegister.drawToBitmap(),
+                    ivCreateGroup.drawToBitmap(),
                     etRegFullname.text.toString(),
                     etRegUsername.text.toString(),
                     etRegEmail.text.toString(),
@@ -58,9 +59,9 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        ivRegister.setOnClickListener{
+        ivCreateGroup.setOnClickListener{
             if(hasPicture){
-                ivRegister.setImageResource(R.drawable.ic_launcher_background)
+                ivCreateGroup.setImageResource(R.drawable.ic_launcher_background)
             }
             else {
                 Log.d("ivReg", "Pressed")
@@ -85,8 +86,10 @@ class RegisterFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val bitmap = data!!.extras!!.get("data") as Bitmap
-        ivRegister.setImageBitmap(bitmap)
+        if(requestCode == 101 && resultCode == RESULT_OK){
+            val bitmap = data!!.extras!!.get("data") as Bitmap
+            ivCreateGroup.setImageBitmap(bitmap)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

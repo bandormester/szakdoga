@@ -2,16 +2,10 @@ package hu.szurdok.todoapp.data.repository.login
 
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import hu.szurdok.todoapp.TodoApplication
-import hu.szurdok.todoapp.data.ApiToken
+import hu.szurdok.todoapp.data.models.misc.ApiToken
 import hu.szurdok.todoapp.retrofit.LoginService
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

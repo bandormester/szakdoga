@@ -1,7 +1,7 @@
 package hu.szurdok.todoapp.retrofit
 
-import hu.szurdok.todoapp.data.ApiToken
-import hu.szurdok.todoapp.data.RegistrationStatus
+import hu.szurdok.todoapp.data.models.misc.ApiToken
+import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body

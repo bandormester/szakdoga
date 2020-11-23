@@ -16,7 +16,7 @@
         android:text="@string/back"/>
 
     <ImageView
-        android:id="@+id/ivRegister"
+        android:id="@+id/ivCreateGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
@@ -24,15 +24,15 @@
         android:layout_height="120dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/iplFullname"
+        app:layout_constraintBottom_toTopOf="@id/iplGroupName"
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/iplFullname"
+        android:id="@+id/iplGroupName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ivRegister"
-        app:layout_constraintBottom_toTopOf="@id/iplUsername"
+        app:layout_constraintTop_toBottomOf="@id/ivCreateGroup"
+        app:layout_constraintBottom_toTopOf="@id/iplGroupDescription"
         android:theme="@style/WhiteTextLabel"
         android:layout_marginHorizontal="40dp">
     <EditText
@@ -46,11 +46,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/iplUsername"
+        android:id="@+id/iplGroupDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iplFullname"
-        app:layout_constraintBottom_toTopOf="@id/iplEmail"
+        app:layout_constraintTop_toBottomOf="@id/iplGroupName"
+        app:layout_constraintBottom_toTopOf="@id/iplJoinCode"
         android:theme="@style/WhiteTextLabel"
         android:layout_marginHorizontal="40dp">
         <EditText
@@ -64,10 +64,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/iplEmail"
+        android:id="@+id/iplJoinCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iplUsername"
+        app:layout_constraintTop_toBottomOf="@id/iplGroupDescription"
         app:layout_constraintBottom_toTopOf="@id/iplPassword"
         android:theme="@style/WhiteTextLabel"
         android:layout_marginHorizontal="40dp">
@@ -85,7 +85,7 @@
         android:id="@+id/iplPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iplEmail"
+        app:layout_constraintTop_toBottomOf="@id/iplJoinCode"
         app:layout_constraintBottom_toTopOf="@id/iplRepeatPassword"
         android:theme="@style/WhiteTextLabel"
         android:layout_marginHorizontal="40dp">
@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/iplPassword"
-        app:layout_constraintBottom_toTopOf="@id/btRegister"
+        app:layout_constraintBottom_toTopOf="@id/btCreate"
         android:theme="@style/WhiteTextLabel"
         android:layout_marginHorizontal="40dp">
         <EditText
@@ -118,7 +118,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btRegister"
+        android:id="@+id/btCreate"
         android:text="@string/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

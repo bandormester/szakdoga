@@ -19,4 +19,7 @@
     <string name="select">Select</string>
     <string name="search_place">Search place</string>
     <string name="not_selected">Not selected</string>
+    <string name="group_name">Group name</string>
+    <string name="description">Description</string>
+    <string name="join_code_optional">Join code (optional)</string>
 </resources>

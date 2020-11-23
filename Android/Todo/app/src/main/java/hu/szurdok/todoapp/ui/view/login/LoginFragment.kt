@@ -2,6 +2,7 @@ package hu.szurdok.todoapp.ui.view.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +29,12 @@ class LoginFragment : Fragment(){
 
         loginViewModel.token.observe(viewLifecycleOwner){
             if(it.id != 0){
+                //TODO
                 val intent = Intent(activity, MainActivity::class.java).apply {
                     putExtra("api-token", it)
                 }
                 startActivity(intent)
+                Log.d("asd","Lefut")
             }
             else {
                 if(it.token.isNotEmpty()) Toast.makeText(activity, it.token, Toast.LENGTH_LONG).show()
@@ -76,7 +79,7 @@ class LoginFragment : Fragment(){
             }
         }
 
-        btRegister.setOnClickListener{
+        btCreate.setOnClickListener{
             (activity as LoginActivity).toRegisterFragment()
         }
     }

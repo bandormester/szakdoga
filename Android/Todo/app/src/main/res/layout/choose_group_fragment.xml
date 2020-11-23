@@ -12,10 +12,10 @@
         android:layout_height="0dp"
         android:layout_margin="20dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btChooseGroup"/>
+        app:layout_constraintBottom_toTopOf="@+id/btCreateGroup"/>
 
     <Button
-        android:id="@+id/btChooseGroup"
+        android:id="@+id/btCreateGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

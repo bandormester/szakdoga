@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_blue">
+
+    <Button
+        android:id="@+id/btBackToChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12sp"
+        style="@style/WhiteOutlinedButton"
+        android:text="@string/back"/>
+
+    <ImageView
+        android:id="@+id/ivCreateGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_height="120dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/iplGroupName"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iplGroupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ivCreateGroup"
+        app:layout_constraintBottom_toTopOf="@id/iplGroupDescription"
+        android:theme="@style/WhiteTextLabel"
+        android:layout_marginHorizontal="40dp">
+        <EditText
+            android:id="@+id/etGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/group_name"
+            style="@style/LightBlueEditText"
+            android:inputType="text"
+            android:importantForAutofill="no" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iplGroupDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iplGroupName"
+        app:layout_constraintBottom_toTopOf="@id/iplJoinCode"
+        android:theme="@style/WhiteTextLabel"
+        android:layout_marginHorizontal="40dp">
+        <EditText
+            android:id="@+id/etGroupDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/LightBlueEditText"
+            android:hint="@string/description"
+            android:inputType="text"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/iplJoinCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iplGroupDescription"
+        app:layout_constraintBottom_toTopOf="@id/btFinishGroup"
+        android:theme="@style/WhiteTextLabel"
+        android:layout_marginHorizontal="40dp">
+        <EditText
+            android:id="@+id/etJoinCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/LightBlueEditText"
+            android:hint="@string/join_code_optional"
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btFinishGroup"
+        android:text="@string/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        app:layout_constraintTop_toBottomOf="@id/iplJoinCode"
+        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/LightBlueOutlinedButton"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

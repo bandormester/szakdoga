@@ -3,12 +3,11 @@ package hu.szurdok.todoapp.data.repository.main
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import hu.szurdok.todoapp.data.RegistrationStatus
-import hu.szurdok.todoapp.data.task.Task
-import hu.szurdok.todoapp.data.user.User
+import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
+import hu.szurdok.todoapp.data.models.Task
+import hu.szurdok.todoapp.data.models.User
 import hu.szurdok.todoapp.retrofit.GroupService
 import hu.szurdok.todoapp.retrofit.TaskService
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

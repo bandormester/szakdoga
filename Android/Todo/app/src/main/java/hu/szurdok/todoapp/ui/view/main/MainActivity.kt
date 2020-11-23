@@ -6,8 +6,11 @@ import android.view.View
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.TodoApplication
 import hu.szurdok.todoapp.container.MainContainer
-import hu.szurdok.todoapp.data.ApiToken
-import hu.szurdok.todoapp.ui.view.main.create.CreateTaskFragment
+import hu.szurdok.todoapp.data.models.misc.ApiToken
+import hu.szurdok.todoapp.ui.view.main.task.create.CreateTaskFragment
+import hu.szurdok.todoapp.ui.view.main.group.ChooseGroupFragment
+import hu.szurdok.todoapp.ui.view.main.group.GroupDetailsFragment
+import hu.szurdok.todoapp.ui.view.main.task.BrowseTasksFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     internal fun toTasksFragment(): Boolean {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, ChooseGroupFragment())
+            .replace(R.id.container, BrowseTasksFragment())
             .commitNow()
         return true
     }
@@ -63,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             .commitNow()
         return true
     }
+
 
     internal fun groupSelected(id : Int){
         groupId = id

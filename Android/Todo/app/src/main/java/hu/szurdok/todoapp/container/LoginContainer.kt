@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder
 import hu.szurdok.todoapp.TodoApplication
 import hu.szurdok.todoapp.data.repository.login.LoginRepository
 import hu.szurdok.todoapp.data.repository.login.RegisterRepositry
-import hu.szurdok.todoapp.factory.RegisterViewModelFactory
+import hu.szurdok.todoapp.data.factory.RegisterViewModelFactory
 import hu.szurdok.todoapp.retrofit.LoginService
 import hu.szurdok.todoapp.viewmodel.login.LoginViewModel
 import retrofit2.Retrofit

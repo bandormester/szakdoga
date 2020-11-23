@@ -2,7 +2,7 @@ package hu.szurdok.todoapp.viewmodel.login
 
 import android.util.Base64
 import androidx.lifecycle.*
-import hu.szurdok.todoapp.data.ApiToken
+import hu.szurdok.todoapp.data.models.misc.ApiToken
 import hu.szurdok.todoapp.data.repository.login.LoginRepository
 
 class LoginViewModel (

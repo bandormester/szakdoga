@@ -3,16 +3,11 @@ package hu.szurdok.todoapp.container
 import androidx.room.Room
 import com.google.gson.GsonBuilder
 import hu.szurdok.todoapp.TodoApplication
-import hu.szurdok.todoapp.data.group.GroupDatabase
-import hu.szurdok.todoapp.data.repository.main.ChooseGroupRepository
-import hu.szurdok.todoapp.data.repository.main.CreateTaskRepository
-import hu.szurdok.todoapp.data.repository.main.GroupDetailsRepository
-import hu.szurdok.todoapp.factory.ChooseGroupViewModelFactory
-import hu.szurdok.todoapp.factory.CreateTaskViewModelFactory
-import hu.szurdok.todoapp.factory.GroupDetailsViewModelFactory
+import hu.szurdok.todoapp.data.room.GroupDatabase
+import hu.szurdok.todoapp.data.repository.main.*
+import hu.szurdok.todoapp.data.factory.*
 import hu.szurdok.todoapp.retrofit.GroupService
 import hu.szurdok.todoapp.retrofit.TaskService
-import hu.szurdok.todoapp.viewmodel.main.CreateTaskViewModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -34,7 +29,11 @@ class MainContainer(app: TodoApplication) {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(TaskService::class.java)
 
-    private var groupDao = Room.databaseBuilder(app, GroupDatabase::class.java, "user-db").build().groupDao()
+    private var mainDatabase = Room.databaseBuilder(app, GroupDatabase::class.java, "user-db").build()
+
+    private var groupDao = mainDatabase.groupDao()
+    private var taskDao = mainDatabase.taskDao()
+    private var taskCardDao = mainDatabase.taskCardDao()
 
     private var executor = Executors.newCachedThreadPool()
 
@@ -49,4 +48,12 @@ class MainContainer(app: TodoApplication) {
     private val createTaskRepository = CreateTaskRepository(taskService, groupService, executor)
 
     val createTaskViewModelFactory = CreateTaskViewModelFactory(createTaskRepository)
+
+    private val browseTasksRepository = BrowseTasksRepository(taskService, taskCardDao, executor)
+
+    val browseTasksViewModelFactory = BrowseTasksViewModelFactory(browseTasksRepository)
+
+    private val taskDetailsRepository = TaskDetailsRepository(taskService, taskDao, executor)
+
+    val taskDetailsRepositoryFactory = TaskDetailsViewModelFactory(taskDetailsRepository)
 }
