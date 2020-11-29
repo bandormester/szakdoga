@@ -1,6 +1,7 @@
 package hu.szurdok.todoapp.data.adapters
 
 import android.app.Activity
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,12 @@ class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTa
             view.setOnClickListener{
                 taskCard?.let { it1 -> itemClickListener?.onTaskSelected(it1) }
             }
+        }
+
+        fun inflateDetail(drawableId : Int){
+            val pictogram = activity.layoutInflater.inflate(R.layout.pictogram, pictoHolder, false)
+            pictogram.ivPictogram.setImageDrawable(ResourcesCompat.getDrawable(activity.resources, drawableId, null))
+            pictoHolder.addView(pictogram)
         }
     }
 
@@ -63,9 +70,18 @@ class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTa
         holder.taskCard = tasks[position]
         holder.label.text = holder.taskCard?.label
 
-        val pictogram = activity.layoutInflater.inflate(R.layout.pictogram, holder.pictoHolder, false)
-        pictogram.ivPictogram.setImageDrawable(ResourcesCompat.getDrawable(activity.resources, R.drawable.ic_launcher_background, null))
-        holder.pictoHolder.addView(pictogram)
+        if(holder.taskCard!!.hasAssignees){
+            holder.inflateDetail(R.drawable.ic_baseline_has_person)
+        }
+        if(holder.taskCard!!.hasChecklist){
+            holder.inflateDetail(R.drawable.ic_baseline_has_checklist)
+        }
+        if(holder.taskCard!!.hasDescription){
+            holder.inflateDetail(R.drawable.ic_baseline_has_description)
+        }
+        if(holder.taskCard!!.hasPlace){
+            holder.inflateDetail(R.drawable.ic_baseline_has_place)
+        }
 
         val bgColor = when(holder.taskCard!!.importance){
             Importance.IMPORTANT -> R.color.important
@@ -74,4 +90,5 @@ class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTa
         }
         holder.layout.setBackgroundColor(ResourcesCompat.getColor(activity.resources, bgColor, null))
     }
+
 }

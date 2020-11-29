@@ -22,7 +22,6 @@ class CreateTaskViewModel(
     var descriptionAdded = false
     var placeAdded = false
     var personAdded = false
-    var deadlineAdded = false
     var checklistAdded = false
 
     var newTask : Task? = null

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.widget.doOnTextChanged
@@ -70,8 +71,10 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
 
         //Description
         if(!createTaskViewModel.descriptionAdded) etCreateDescription.visibility = GONE
+        setText(tvCreateDescription, createTaskViewModel.descriptionAdded, getString(R.string.description))
         tvCreateDescription.setOnClickListener {
             createTaskViewModel.descriptionAdded = showInputView(etCreateDescription, createTaskViewModel.descriptionAdded)
+            setText(tvCreateDescription, createTaskViewModel.descriptionAdded, getString(R.string.description))
         }
         etCreateDescription.doOnTextChanged { text, _, _, _ ->
             createTaskViewModel.setDescription(text.toString())
@@ -79,8 +82,10 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
 
         //Place
         if(!createTaskViewModel.placeAdded) llCreatePlace.visibility = GONE
+        setText(tvCreatePlace, createTaskViewModel.placeAdded, getString(R.string.location))
         tvCreatePlace.setOnClickListener {
             createTaskViewModel.placeAdded = showInputView(llCreatePlace, createTaskViewModel.placeAdded)
+            setText(tvCreatePlace, createTaskViewModel.placeAdded, getString(R.string.location))
         }
         btCreatePlace.setOnClickListener {
             val intent = Intent(activity, CreateMapActivity::class.java)
@@ -89,20 +94,19 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
 
         //Person
         if(!createTaskViewModel.personAdded) llCreatePerson.visibility = GONE
+        setText(tvCreatePerson, createTaskViewModel.personAdded, getString(R.string.assignee))
         tvCreatePerson.setOnClickListener {
             createTaskViewModel.personAdded = showInputView(llCreatePerson, createTaskViewModel.personAdded)
+            setText(tvCreatePerson, createTaskViewModel.personAdded, getString(R.string.assignee))
             if(createTaskViewModel.personAdded) setupPersonAdding()
         }
 
-        //Deadline TODO
-        //tvCreateTime.setOnClickListener {
-        //    createTaskViewModel.deadlineAdded = showInputView(llCreateTime, createTaskViewModel.deadlineAdded)
-        //}
-
         //Checklist
         if(!createTaskViewModel.checklistAdded) llCreateChecklist.visibility = GONE
+        setText(tvCreateChecklist, createTaskViewModel.checklistAdded, getString(R.string.checklist))
         tvCreateChecklist.setOnClickListener {
             createTaskViewModel.checklistAdded = showInputView(llCreateChecklist, createTaskViewModel.checklistAdded)
+            setText(tvCreateChecklist, createTaskViewModel.checklistAdded, getString(R.string.checklist))
             if(createTaskViewModel.checklistAdded) setupChecklistAdding()
             Log.d("recview", createTaskViewModel.checklistAdded.toString())
         }
@@ -147,7 +151,7 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
     }
 
     private fun setupPersonAddingRecycler(members : List<User>){
-        val adapter = SelectMemberAdapter()
+        val adapter = SelectMemberAdapter(requireActivity())
         adapter.itemClickListener = this
         adapter.addAll(members, createTaskViewModel.getSelectedMembers())
         lvCreatePerson.layoutManager = LinearLayoutManager(activity)
@@ -162,6 +166,14 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         }
 
         return !visible
+    }
+
+    private fun setText(tv : TextView, added : Boolean, detail : String){
+        if(!added){
+            tv.text = getString(R.string.add_detail, detail)
+        }else{
+            tv.text = getString(R.string.remove_detail, detail)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

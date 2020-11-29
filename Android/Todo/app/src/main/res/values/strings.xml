@@ -22,4 +22,10 @@
     <string name="group_name">Group name</string>
     <string name="description">Description</string>
     <string name="join_code_optional">Join code (optional)</string>
+    <string name="Choose">Choose</string>
+    <string name="location">Location</string>
+    <string name="assignee">Assignee</string>
+    <string name="checklist">Checklist</string>
+    <string name="add_detail">Add %1$s</string>
+    <string name="remove_detail">Remove %1$s</string>
 </resources>

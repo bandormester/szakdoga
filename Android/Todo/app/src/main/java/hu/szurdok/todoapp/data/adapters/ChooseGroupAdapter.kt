@@ -14,7 +14,7 @@ import hu.szurdok.todoapp.data.models.Group
 import hu.szurdok.todoapp.viewmodel.main.group.ChooseGroupViewModel
 import kotlinx.android.synthetic.main.group_item.view.*
 
-class ChooseGroupAdapter(val context : Context,val chooseGroupViewModel: ChooseGroupViewModel) : RecyclerView.Adapter<ChooseGroupAdapter.GroupViewHolder>() {
+class ChooseGroupAdapter(val context : Context) : RecyclerView.Adapter<ChooseGroupAdapter.GroupViewHolder>() {
 
     private var groups = mutableListOf<Group>()
     var itemClickListener : GroupItemClickListener? = null
@@ -44,8 +44,7 @@ class ChooseGroupAdapter(val context : Context,val chooseGroupViewModel: ChooseG
 
 
         if(holder.group!!.hasPicture){
-          // chooseGroupViewModel.getPicture(holder.group!!.id)
-            val glideUrl = GlideUrl("http://10.0.2.2:8080/group/"+holder.group!!.id+"/pic")
+            val glideUrl = GlideUrl("http://86.59.209.1:8080/group/"+holder.group!!.id+"/pic")
             val option = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
             Glide.with(context)
                 .load(glideUrl)

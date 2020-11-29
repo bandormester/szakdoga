@@ -6,6 +6,9 @@ import hu.szurdok.todoapp.data.models.misc.ApiToken
 import hu.szurdok.todoapp.data.models.TaskCard
 import hu.szurdok.todoapp.data.room.TaskCardDao
 import hu.szurdok.todoapp.retrofit.TaskService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.concurrent.Executor
 
 class BrowseTasksRepository(
@@ -29,44 +32,71 @@ class BrowseTasksRepository(
     }
 
     private fun refreshTasks(groupId: Int){
-        executor.execute{
-            val response = taskService.getTasks(groupId).execute()
-            if (response.isSuccessful) {
-                taskCardDao.clearTable()
-                taskCardDao.saveAll(response.body()!!)
-                Log.d("retrofit", response.body()!![0].id.toString())
-            } else{
-                Log.d("retrofit", response.message())
-                Log.d("retorift", response.toString())
+        taskService.getTasks(groupId).enqueue(object : Callback<List<TaskCard>> {
+            override fun onResponse(call: Call<List<TaskCard>>, response: Response<List<TaskCard>>) {
+                if (response.isSuccessful) {
+                    executor.execute{
+                        taskCardDao.clearTable()
+                        taskCardDao.saveAll(response.body()!!)
+                    }
+                    Log.d("retrofit", response.body()!![0].id.toString())
+                } else{
+                    Log.d("retrofit", response.message())
+                    Log.d("retorift", response.toString())
+                }
             }
-        }
+
+            override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
+                Log.d("retrofit", t.message.toString())
+                Log.d("retorift", t.toString())
+            }
+
+        })
     }
 
     private fun refreshMyTasks(userId : Int, groupId: Int){
-        executor.execute{
-            val response = taskService.getMyTasks(userId, groupId).execute()
-            if (response.isSuccessful) {
-                taskCardDao.clearTable()
-                taskCardDao.saveAll(response.body()!!)
-                Log.d("retrofit", response.body()!!.size.toString())
-            } else {
-                Log.d("retrofit", response.message())
-                Log.d("retorift", response.toString())
-            }
-        }
+                taskService.getMyTasks(userId, groupId).enqueue(object : Callback<List<TaskCard>> {
+                override fun onResponse(call: Call<List<TaskCard>>, response: Response<List<TaskCard>>) {
+                    if (response.isSuccessful) {
+                        executor.execute{
+                            taskCardDao.clearTable()
+                            taskCardDao.saveAll(response.body()!!)
+                        }
+                        Log.d("retrofit", response.body()!![0].id.toString())
+                    } else{
+                        Log.d("retrofit", response.message())
+                        Log.d("retorift", response.toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                    Log.d("retorift", t.toString())
+                }
+
+            })
     }
 
     private fun refreshDoneTasks(userId : Int, groupId: Int){
-        executor.execute{
-            val response = taskService.getDoneTasks(userId, groupId).execute()
-            if (response.isSuccessful) {
-                taskCardDao.clearTable()
-                taskCardDao.saveAll(response.body()!!)
-                Log.d("retrofit", response.body()!!.size.toString())
-            } else {
-                Log.d("retrofit", response.message())
-                Log.d("retorift", response.toString())
-            }
-        }
+        taskService.getDoneTasks(userId, groupId).enqueue(object : Callback<List<TaskCard>> {
+                override fun onResponse(call: Call<List<TaskCard>>, response: Response<List<TaskCard>>) {
+                    if (response.isSuccessful) {
+                        executor.execute{
+                            taskCardDao.clearTable()
+                            taskCardDao.saveAll(response.body()!!)
+                        }
+                        Log.d("retrofit", response.body()!![0].id.toString())
+                    } else{
+                        Log.d("retrofit", response.message())
+                        Log.d("retorift", response.toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
+                    Log.d("retrofit", t.message.toString())
+                    Log.d("retorift", t.toString())
+                }
+
+            })
     }
 }

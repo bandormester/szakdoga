@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_blue">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGroups"
@@ -21,6 +22,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="20dp"
         android:text="@string/create"
-        style="@style/LightBlueButton"
+        style="@style/LightBlueOutlinedButton"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

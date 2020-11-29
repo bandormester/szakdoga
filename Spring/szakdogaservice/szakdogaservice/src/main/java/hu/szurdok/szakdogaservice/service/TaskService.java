@@ -32,8 +32,8 @@ public class TaskService {
 
     @Transactional
     public ResponseEntity<RegisterStatus> createTask(TaskDto taskDto, Boolean hasAssignee, Boolean hasChecklist) {
-
         Task task = new Task(taskDto, hasAssignee, hasChecklist);
+        task.setTaskState(TaskState.OPEN);
 
         taskRepository.save(task);
 

@@ -51,7 +51,7 @@ class ChooseGroupFragment : Fragment(), ChooseGroupAdapter.GroupItemClickListene
     }
 
     private fun setupRecyclerView(list: List<Group>) {
-        val groupAdapter = ChooseGroupAdapter(requireActivity(), chooseGroupViewModel)
+        val groupAdapter = ChooseGroupAdapter(requireActivity())
         Log.d("retrofit", list.size.toString())
         groupAdapter.itemClickListener = this
         groupAdapter.addAll(list)

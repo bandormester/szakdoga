@@ -11,6 +11,7 @@ import hu.szurdok.todoapp.retrofit.TaskService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.SocketTimeoutException
 import java.util.concurrent.Executor
 
 class CreateTaskRepository(
@@ -32,6 +33,9 @@ class CreateTaskRepository(
     }
 
     fun createTask(task : Task, hasAssignee: Boolean, hasChecklist: Boolean) {
+        Log.d("retrofit", task.importance.toString())
+        Log.d("retrofit", task.importance.toString())
+        Log.d("retrofit", task.importance.toString())
         taskService.createTask(task, hasAssignee, hasChecklist).enqueue(object : Callback<RegistrationStatus>{
             override fun onResponse(
                 call: Call<RegistrationStatus>,
@@ -65,11 +69,15 @@ class CreateTaskRepository(
     }
 
     private fun updateMembers(id : Int){
-        executor.execute{
-            val response = groupService.getGroupMembers(id).execute()
-            if(response.isSuccessful){
-                members!!.postValue(response.body()!!)
+        try{
+            executor.execute{
+                val response = groupService.getGroupMembers(id).execute()
+                if(response.isSuccessful){
+                    members!!.postValue(response.body()!!)
+                }
             }
+        }catch (e : Exception){
+            updateMembers(id)
         }
     }
 }

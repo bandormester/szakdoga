@@ -5,6 +5,7 @@ import hu.szurdok.szakdogaservice.misc.RegisterStatus;
 import hu.szurdok.szakdogaservice.enitites.User;
 import hu.szurdok.szakdogaservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,12 @@ public class UserController {
             @RequestParam String password
     ){
         return userService.tryLogin(username, password);
+    }
+
+    @GetMapping(value = "/{userId}/pic",
+            produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getUserPic(@PathVariable(value = "userId") Integer userId){
+        return userService.getPicture(userId);
     }
 
     @PostMapping("/register")

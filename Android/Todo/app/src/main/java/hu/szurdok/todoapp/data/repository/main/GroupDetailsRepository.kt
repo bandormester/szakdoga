@@ -36,12 +36,21 @@ class GroupDetailsRepository(
     }
 
     private fun updateGroup(id : Int){
-        executor.execute{
-            val response = groupService.getGroup(id).execute()
-            if(response.isSuccessful){
-                groupDao.save(response.body()!!)
-            } else Log.d("retrofit", "sikertelen getGroup")
-        }
+            groupService.getGroup(id).enqueue(object : Callback<Group>{
+                override fun onResponse(call: Call<Group>, response: Response<Group>) {
+                    if(response.isSuccessful){
+                        executor.execute{
+                            groupDao.save(response.body()!!)
+                        }
+                    } else Log.d("retrofit", "sikertelen getGroup")
+                }
+
+                override fun onFailure(call: Call<Group>, t: Throwable) {
+                    Log.d("retrofit", "sikertelen getGroup")
+                }
+
+            })
+
     }
 
     fun getMembers(id : Int) : MutableLiveData<List<User>>{
@@ -55,12 +64,20 @@ class GroupDetailsRepository(
     }
 
     private fun updateMembers(id : Int){
-        executor.execute{
-            val response = groupService.getGroupMembers(id).execute()
-            if(response.isSuccessful){
-                members!!.postValue(response.body()!!)
-            }
-        }
+            groupService.getGroupMembers(id).enqueue(object : Callback<List<User>>{
+                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                    if(response.isSuccessful){
+                        executor.execute{
+                            members!!.postValue(response.body()!!)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                    Log.d("asd","asd")
+                }
+
+            })
     }
 
     fun removeMember(groupId : Int, token : ApiToken, removedId : Int) {

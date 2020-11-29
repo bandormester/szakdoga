@@ -11,11 +11,12 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_items"
-        android:visibility="gone"
-        app:itemTextColor="@color/light_blue"
-        app:itemIconTint="@color/light_blue"
-        android:background="@color/white"
+        android:visibility="visible"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        android:background="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <FrameLayout

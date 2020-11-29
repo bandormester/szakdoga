@@ -12,15 +12,17 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class ChooseGroupRepository(
     private val chooseGroupService: GroupService,
-    private val groupDao : GroupDao
+    private val groupDao : GroupDao,
+    private val executor : Executor
 ) {
     private var createStatus : MutableLiveData<String>? = null
-    val executor =
-        Executors.newCachedThreadPool()
+    //val executor =
+    //    Executors.newCachedThreadPool()
 
     fun getGroups (token : ApiToken) : LiveData<List<Group>> {
         refreshGroups(token)
@@ -73,13 +75,21 @@ class ChooseGroupRepository(
     }
 
     private fun refreshGroups(token : ApiToken) {
-        executor.execute{
-            val response = chooseGroupService.getMyGroups(token.id).execute()
-            if (response.isSuccessful) {
-                groupDao.saveAll(response.body()!!)
-                Log.d("retrofit", response.body()!!.size.toString())
-            } else Log.d("retrofit", "sikertelen")
-        }
+            chooseGroupService.getMyGroups(token.id).enqueue(object : Callback<List<Group>>{
+                override fun onResponse(call: Call<List<Group>>, response: Response<List<Group>>) {
+                    if (response.isSuccessful) {
+                        executor.execute {
+                            groupDao.saveAll(response.body()!!)
+                        }
+                        Log.d("retrofit", response.body()!!.size.toString())
+                    } else Log.d("retrofit", "sikertelen")
+                }
+
+                override fun onFailure(call: Call<List<Group>>, t: Throwable) {
+                    Log.d("retrofit", "sikertelen")
+                }
+
+            })
 
         //chooseGroupService.getMyGroups(token.id).enqueue(object : Callback<List<Group>>{
         //    override fun onResponse(call: Call<List<Group>>, response: Response<List<Group>>) {

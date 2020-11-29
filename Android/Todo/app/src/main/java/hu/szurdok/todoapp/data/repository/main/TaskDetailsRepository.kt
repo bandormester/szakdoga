@@ -6,7 +6,9 @@ import hu.szurdok.todoapp.data.models.Task
 import hu.szurdok.todoapp.data.models.misc.Importance
 import hu.szurdok.todoapp.data.room.TaskDao
 import hu.szurdok.todoapp.retrofit.TaskService
+import java.net.SocketTimeoutException
 import java.util.concurrent.Executor
+import java.util.concurrent.TimeoutException
 
 class TaskDetailsRepository(
     private val taskService: TaskService,
@@ -23,15 +25,20 @@ class TaskDetailsRepository(
     }
 
     private fun refreshTask(taskId: Int){
-        executor.execute{
-            val response = taskService.getTaskById(taskId).execute()
-            if (response.isSuccessful) {
-                taskDao.save(response.body()!!)
-                Log.d("retrofit", "sikeres")
-            } else {
-                Log.d("retrofit", response.message())
-                Log.d("retorift", response.toString())
+        try{
+            executor.execute{
+                val response = taskService.getTaskById(taskId).execute()
+                if (response.isSuccessful) {
+                    taskDao.save(response.body()!!)
+                    Log.d("retrofit", "sikeres")
+                } else {
+                    Log.d("retrofit", response.message())
+                    Log.d("retorift", response.toString())
+                }
             }
+        } catch(e : SocketTimeoutException){
+            Log.d("retrofit","timeout, retrying")
+            refreshTask(taskId)
         }
     }
 

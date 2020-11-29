@@ -99,7 +99,7 @@ public class GroupService {
         if(hasPicture)
             try{
                 BufferedImage image = ImageIO.read(new ByteArrayInputStream(picture));
-                ImageIO.write(image, "JPG", new File("F:\\Git\\szakdoga\\Spring\\szakdogaservice\\group-pics\\"+groupName+".jpg"));
+                ImageIO.write(image, "JPG", new File("pics\\"+groupName+".jpg"));
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Unable to upload image");
             }

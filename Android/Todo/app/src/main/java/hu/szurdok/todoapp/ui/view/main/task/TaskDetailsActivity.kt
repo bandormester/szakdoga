@@ -76,7 +76,7 @@ class TaskDetailsActivity : AppCompatActivity(), OnMapReadyCallback,
     }
 
     private fun setupAssigneeRecycler(assignees : List<User>){
-        val adapter = GroupMemberAdapter()
+        val adapter = GroupMemberAdapter(this)
         adapter.removeAble = false
         adapter.itemClickListener = this
         adapter.addAll(assignees)

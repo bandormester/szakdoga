@@ -54,7 +54,7 @@ class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListe
     }
 
     private fun setupRecyclerView(members : List<User>){
-        val groupAdapter = GroupMemberAdapter()
+        val groupAdapter = GroupMemberAdapter(requireActivity())
         Log.d("retrofit", members.size.toString())
         groupAdapter.addAll(members)
         groupAdapter.itemClickListener = this

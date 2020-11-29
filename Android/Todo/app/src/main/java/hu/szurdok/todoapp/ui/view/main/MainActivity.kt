@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
+                R.id.choose_group_nav_button -> toChooseGroupFragment()
                 R.id.create_nav_button -> toCreateFragment()
                 R.id.tasks_nav_button -> toTasksFragment()
                 R.id.group_nav_button -> toGroupFragment()
@@ -49,6 +50,13 @@ class MainActivity : AppCompatActivity() {
     private fun toCreateFragment(): Boolean {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, CreateTaskFragment())
+            .commitNow()
+        return true
+    }
+
+    private fun toChooseGroupFragment(): Boolean {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, ChooseGroupFragment())
             .commitNow()
         return true
     }
