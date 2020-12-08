@@ -63,4 +63,11 @@ public class TaskController {
     ){
         return taskService.checkItem(checkId, isDone);
     }
+
+    @DeleteMapping("/id/{taskId}")
+    public ResponseEntity<Void> finishTask(
+            @PathVariable Integer taskId
+    ){
+        return taskService.finishTask(taskId);
+    }
 }

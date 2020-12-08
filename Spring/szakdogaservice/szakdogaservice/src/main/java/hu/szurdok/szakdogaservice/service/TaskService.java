@@ -25,6 +25,7 @@ import java.util.Optional;
 public class TaskService {
     @Autowired
     TaskRepository taskRepository;
+    @Autowired
     TodoCheckRepository todoCheckRepository;
 
     @PersistenceContext
@@ -35,7 +36,21 @@ public class TaskService {
         Task task = new Task(taskDto, hasAssignee, hasChecklist);
         task.setTaskState(TaskState.OPEN);
 
-        taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+
+        if(hasChecklist){
+            for(TodoCheck tc : taskDto.getChecklist()){
+                tc.setTaskId(savedTask.getId());
+            }
+            todoCheckRepository.saveAll(taskDto.getChecklist());
+        }
+        if(hasAssignee)
+            for(User u : taskDto.getAssignees()){
+            em.createNativeQuery("INSERT INTO assignees (user_id, task_id) VALUES (?, ?)")
+                    .setParameter(1, u.getId())
+                    .setParameter(2, savedTask.getId())
+                    .executeUpdate();
+            }
 
         return ResponseEntity.ok().body(new RegisterStatus(true, "Registration successful"));
     }
@@ -46,7 +61,6 @@ public class TaskService {
                 .setParameter("id",userId).getResultList();
 
         List<Task> groupTasks = taskRepository.findByGroupId(groupId);
-
         List<TaskBrowseDto> tasks = new ArrayList<>();
         List<TaskBrowseDto> ownedTasks = new ArrayList<>();
 
@@ -59,7 +73,6 @@ public class TaskService {
                 }
             }
         }
-
         tasks.addAll(ownedTasks);
 
         return ResponseEntity.ok(tasks);
@@ -68,9 +81,7 @@ public class TaskService {
     public ResponseEntity<List<TaskBrowseDto>> getDoneTasks(Integer groupId, Integer userId){
 
         List<Task> ownedTasks = taskRepository.findByGroupIdAndOwnerId(groupId, userId);
-
         List<TaskBrowseDto> savedTasks = new ArrayList<>();
-        
         List<TaskBrowseDto> tasks = new ArrayList<>();
         
         for(Task task : ownedTasks){
@@ -89,22 +100,20 @@ public class TaskService {
         tasks.addAll(savedTasks);
 
         return ResponseEntity.ok(tasks);
-
     }
 
     public ResponseEntity<List<TaskBrowseDto>> getTasks(Integer groupId){
 
         List<Task> tasks = taskRepository.findByGroupId(groupId);
-
         List<TaskBrowseDto> result = new ArrayList<>();
 
         for(Task task : tasks){
             if(task.getTaskState() == TaskState.OPEN){
                 TaskBrowseDto dto = new TaskBrowseDto(task);
-                System.out.println(dto.getId());
                 result.add(dto);
             }
         }
+
         return ResponseEntity.ok(result);
     }
 
@@ -119,22 +128,37 @@ public class TaskService {
                 List<User> assignees = em.createQuery("SELECT u FROM User u WHERE u.id IN (SELECT a.userId FROM Assignee a WHERE a.taskId = :id)", User.class)
                         .setParameter("id", task.getId()).getResultList();
                 dto.setAssignees(assignees);
-                System.out.println(assignees.size() + " -- assignees size");
             }
             if(task.getHasChecklist()){
-                List<TodoCheck> checklist = em.createQuery("SELECT t FROM TodoCheck t WHERE t.taskId = :id", TodoCheck.class)
-                        .setParameter("id", task.getId()).getResultList();
-                dto.setChecklist(checklist);
-                System.out.println(checklist.size() + " -- checklist size");
+                List<TodoCheck> checks = todoCheckRepository.findByTaskId(taskId);
+                dto.setChecklist(checks);
             }
 
             return ResponseEntity.ok(dto);
-        }
-        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     public ResponseEntity<Void> checkItem(Integer checkId, Boolean isDone) {
-        //TODO todoCheckRepository.updateCheckDone(checkId, isDone ? 1 : 0 );
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        Optional<TodoCheck> check = todoCheckRepository.findById(checkId);
+
+        if(check.isPresent()){
+            check.get().setDone(isDone);
+            todoCheckRepository.save(check.get());
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+    public ResponseEntity<Void> finishTask(Integer taskId) {
+        Optional<Task> task = taskRepository.findById(taskId);
+
+        if(task.isPresent()){
+            taskRepository.deleteById(taskId);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 }

@@ -26,7 +26,7 @@ public class TaskBrowseDto {
 
     private Boolean hasAssignees;
 
-    private Boolean hasCheckList;
+    private Boolean hasChecklist;
 
     public TaskBrowseDto(Task task){
         id = task.getId();
@@ -37,6 +37,6 @@ public class TaskBrowseDto {
         hasDescription = task.getDescription() != null && !task.getDescription().isEmpty();
         hasPlace = task.getLat() != null && task.getLon() != null;
         hasAssignees = task.getHasAssignee();
-        hasCheckList = task.getHasChecklist();
+        hasChecklist = task.getHasChecklist();
     }
 }

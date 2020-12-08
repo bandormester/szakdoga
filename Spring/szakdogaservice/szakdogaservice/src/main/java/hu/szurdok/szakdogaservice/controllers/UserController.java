@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public @ResponseBody ResponseEntity<RegisterStatus> register(
+    public ResponseEntity<RegisterStatus> register(
             @RequestBody(required = false) byte[] picture,
             @RequestParam String fullname,
             @RequestParam String username,

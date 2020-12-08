@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<TodoGroup, Integer> {
     List<TodoGroup> findByOwnerId(Integer ownerId);
+    TodoGroup findByJoinCode(String joinCode);
 }

@@ -64,10 +64,9 @@ public class UserService {
 
     public ResponseEntity<byte[]> getPicture(Integer userId) {
         Optional<User> user = userRepository.findById(userId);
-        System.out.println("User has pic");
+
         try {
             if (user.isPresent()) {
-                System.out.println("User has pic 2");
                 ClassPathResource img = new ClassPathResource("user-pics/" + user.get().getUserName() + ".jpg");
                 byte[] bytes = StreamUtils.copyToByteArray(img.getInputStream());
                 return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);

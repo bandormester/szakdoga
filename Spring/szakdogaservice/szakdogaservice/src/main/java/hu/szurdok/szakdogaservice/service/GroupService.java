@@ -37,9 +37,9 @@ public class GroupService {
     }
 
     public ResponseEntity<List<TodoGroup>> getMyGroups(Integer userId){
-        System.out.println("get groups lefutott");
+
         List<TodoGroup> list = groupRepository.findByOwnerId(userId);
-        System.out.println(list.size());
+
         return ResponseEntity.ok().body(list);
     }
 
@@ -59,14 +59,14 @@ public class GroupService {
     }
 
     @Transactional
-    public ResponseEntity<String> removeMember(Integer groupId, Integer userId, Integer removeId){
+    public ResponseEntity<String> removeMember(Integer groupId, Integer ownerId, Integer userId){
         Optional<TodoGroup> group = groupRepository.findById(groupId);
 
         if(group.isPresent()){
-            if(group.get().getOwnerId().equals(userId)){
-                int count = em.createQuery("DELETE FROM Member m WHERE m.groupId = :groupId AND m.userId = :removeId")
+            if(group.get().getOwnerId().equals(ownerId)){
+                int count = em.createQuery("DELETE FROM Member m WHERE m.groupId = :groupId AND m.userId = :userId")
                         .setParameter("groupId", groupId)
-                        .setParameter("removeId", removeId)
+                        .setParameter("userId", userId)
                         .executeUpdate();
                 if(count == 1){
                     return ResponseEntity.ok().body("Successfully removed member");
@@ -109,10 +109,9 @@ public class GroupService {
 
     public ResponseEntity<byte[]> getPicture(Integer groupId) {
         Optional<TodoGroup> group = groupRepository.findById(groupId);
-        System.out.println("Pictured");
+
         try {
             if (group.isPresent()) {
-                System.out.println("Pictured");
                 ClassPathResource img = new ClassPathResource("pics/" + group.get().getName() + ".jpg");
                 byte[] bytes = StreamUtils.copyToByteArray(img.getInputStream());
                 return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(bytes);
@@ -123,5 +122,17 @@ public class GroupService {
         }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+    @Transactional
+    public ResponseEntity<Void> joinGroup(String code, Integer userId){
+        TodoGroup group = groupRepository.findByJoinCode(code);
+
+        em.createNativeQuery("INSERT INTO members (group_id, user_id) VALUES (?, ?)")
+                .setParameter(1, group.getId())
+                .setParameter(2, userId)
+                .executeUpdate();
+
+        return ResponseEntity.ok().body(null);
     }
 }
