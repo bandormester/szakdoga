@@ -16,7 +16,7 @@ class LoginContainer(app: TodoApplication) {
     private val gson = GsonBuilder().setLenient().create()
 
     private val loginService =
-        Retrofit.Builder().baseUrl("http://86.59.209.1:8080")
+        Retrofit.Builder().baseUrl("http://84.0.25.32:8080")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(LoginService::class.java)

@@ -28,4 +28,11 @@
     <string name="checklist">Checklist</string>
     <string name="add_detail">Add %1$s</string>
     <string name="remove_detail">Remove %1$s</string>
+    <string name="join">Join</string>
+    <string name="finish">Finish</string>
+    <string name="all">All</string>
+    <string name="mine">Mine</string>
+    <string name="owned">Owned</string>
+    <string name="show_map">Show Map</string>
+    <string name="add_item">Add item</string>
 </resources>

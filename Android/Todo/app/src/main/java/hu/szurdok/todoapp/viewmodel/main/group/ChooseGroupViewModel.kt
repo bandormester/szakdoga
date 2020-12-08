@@ -1,6 +1,8 @@
 package hu.szurdok.todoapp.viewmodel.main.group
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import hu.szurdok.todoapp.data.models.misc.ApiToken
@@ -28,8 +30,12 @@ class ChooseGroupViewModel(
         chooseGroupRepository.createGroup(picture, token, name, description, joinCode, hasPicture)
     }
 
-    fun getPicture(groupId : Int){
-        chooseGroupRepository.getPicture(groupId)
+    fun joinGroup(code : String){
+        chooseGroupRepository.joinGroup(code, token.id)
+    }
+
+    fun getGroupPicture(id: Int, imageView: ImageView, context: Context) {
+        chooseGroupRepository.getGroupPicture(id, imageView, context)
     }
 
     protected fun finalize(){

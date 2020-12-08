@@ -11,7 +11,7 @@ import hu.szurdok.todoapp.ui.view.main.task.create.CreateTaskFragment
 import hu.szurdok.todoapp.ui.view.main.group.ChooseGroupFragment
 import hu.szurdok.todoapp.ui.view.main.group.GroupDetailsFragment
 import hu.szurdok.todoapp.ui.view.main.task.BrowseTasksFragment
-import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, ChooseGroupFragment())

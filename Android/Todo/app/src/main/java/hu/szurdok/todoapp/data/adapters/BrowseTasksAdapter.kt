@@ -1,17 +1,18 @@
 package hu.szurdok.todoapp.data.adapters
 
 import android.app.Activity
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.data.models.misc.Importance
 import hu.szurdok.todoapp.data.models.TaskCard
-import kotlinx.android.synthetic.main.pictogram.view.*
-import kotlinx.android.synthetic.main.task_item_card.view.*
+import kotlinx.android.synthetic.main.inflate_pictogram.view.*
+import kotlinx.android.synthetic.main.item_task_card.view.*
 
 class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTasksAdapter.TaskViewHolder>() {
 
@@ -19,9 +20,9 @@ class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTa
     var itemClickListener : TaskItemClickListener? = null
 
     inner class TaskViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val label = view.tvTaskLabel
-        val layout = view.llTaskItem
-        val pictoHolder = view.llPictogramHolder
+        val label: TextView = view.tvTaskLabel
+        val layout: LinearLayout = view.llTaskItem
+        private val pictoHolder: LinearLayout = view.llPictogramHolder
 
         var taskCard : TaskCard? = null
 
@@ -32,24 +33,18 @@ class BrowseTasksAdapter(val activity: Activity) : RecyclerView.Adapter<BrowseTa
         }
 
         fun inflateDetail(drawableId : Int){
-            val pictogram = activity.layoutInflater.inflate(R.layout.pictogram, pictoHolder, false)
+            val pictogram = activity.layoutInflater.inflate(R.layout.inflate_pictogram, pictoHolder, false)
             pictogram.ivPictogram.setImageDrawable(ResourcesCompat.getDrawable(activity.resources, drawableId, null))
             pictoHolder.addView(pictogram)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task_card, parent, false)
         return TaskViewHolder(view)
     }
 
     override fun getItemCount() = tasks.size
-
-    fun clear(){
-        val size = itemCount
-        tasks.clear()
-        notifyItemRangeChanged(size, 0)
-    }
 
     fun addAll(list : List<TaskCard>){
         val size = itemCount

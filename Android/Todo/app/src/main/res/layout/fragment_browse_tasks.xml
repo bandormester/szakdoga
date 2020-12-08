@@ -31,7 +31,7 @@
             android:layout_height="30dp"
             android:layout_weight="2"
             android:layout_marginVertical="1dp"
-            android:text="All"/>
+            android:text="@string/all"/>
 
         <Button
             android:id="@+id/btMineTasks"
@@ -41,7 +41,7 @@
             android:layout_marginHorizontal="4dp"
             android:layout_marginVertical="1dp"
             android:layout_weight="2"
-            android:text="Mine"/>
+            android:text="@string/mine"/>
 
         <Button
             android:id="@+id/btOwnedTasks"
@@ -50,7 +50,7 @@
             android:layout_height="30dp"
             android:layout_weight="2"
             android:layout_marginVertical="1dp"
-            android:text="Owned"/>
+            android:text="@string/owned"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

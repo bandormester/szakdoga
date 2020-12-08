@@ -3,5 +3,6 @@
     android:id="@+id/ivPictogram"
     android:layout_width="30dp"
     android:layout_height="30dp"
-    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginStart="4dp"
     android:contentDescription="Sample"/>

@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +17,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.observe
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.viewmodel.main.group.ChooseGroupViewModel
-import kotlinx.android.synthetic.main.create_group_fragment.*
-import kotlinx.android.synthetic.main.create_group_fragment.ivCreateGroup
+import kotlinx.android.synthetic.main.fragment_create_group.*
 
 
 class CreateGroupFragment(
@@ -36,7 +34,7 @@ class CreateGroupFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.create_group_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_create_group, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +49,6 @@ class CreateGroupFragment(
                 ivCreateGroup.setImageResource(R.drawable.ic_launcher_background)
             }
             else {
-                Log.d("ivRegGroup", "Pressed")
                 askCameraPermission()
             }
             hasPicture = !hasPicture

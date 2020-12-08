@@ -1,29 +1,29 @@
 package hu.szurdok.todoapp.data.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.request.RequestOptions
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.data.models.User
-import kotlinx.android.synthetic.main.member_item.view.*
+import hu.szurdok.todoapp.viewmodel.main.ImageLoadingViewModel
+import kotlinx.android.synthetic.main.item_member.view.*
 
-class GroupMemberAdapter(val context : Context) : RecyclerView.Adapter<GroupMemberAdapter.MemberHolder>() {
+class GroupMemberAdapter(private val viewModel : ImageLoadingViewModel, val context : Context) : RecyclerView.Adapter<GroupMemberAdapter.MemberHolder>() {
 
     private var members = mutableListOf<User>()
     var itemClickListener : MemberItemClickListener? = null
+    var removeClickListener : MemberItemRemoveClickListener? = null
     var removeAble : Boolean = true
 
     interface MemberItemClickListener {
         fun onMemberSelected(member: User)
+    }
+
+    interface MemberItemRemoveClickListener{
         fun onMemberRemoved(member: User)
     }
 
@@ -36,7 +36,7 @@ class GroupMemberAdapter(val context : Context) : RecyclerView.Adapter<GroupMemb
         init {
             if(!removeAble) removeImage.visibility = View.GONE
             removeImage.setOnClickListener {
-                user?.let { it1 -> itemClickListener?.onMemberRemoved(it1) }
+                user?.let { it1 -> removeClickListener?.onMemberRemoved(it1) }
             }
             v.setOnClickListener {
                 user?.let { it1 -> itemClickListener?.onMemberSelected(it1) }
@@ -46,7 +46,7 @@ class GroupMemberAdapter(val context : Context) : RecyclerView.Adapter<GroupMemb
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.member_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_member, parent, false)
         return MemberHolder(view)
     }
 
@@ -55,15 +55,8 @@ class GroupMemberAdapter(val context : Context) : RecyclerView.Adapter<GroupMemb
         holder.image.setImageResource(R.drawable.ic_launcher_background)
         holder.name.text = holder.user!!.userName
 
-        Log.d("haspic",holder.user!!.hasPicture.toString())
-
         if(holder.user!!.hasPicture){
-            val glideUrl = GlideUrl("http://86.59.209.1:8080/user/"+holder.user!!.id+"/pic")
-            val option = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
-            Glide.with(context)
-                .load(glideUrl)
-                .apply(option)
-                .into(holder.image)
+            viewModel.getPicture(holder.user!!.id, holder.image, context)
         }
     }
 

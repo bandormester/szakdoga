@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.viewmodel.login.RegisterViewModel
-import kotlinx.android.synthetic.main.register_activity.*
+import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
 
@@ -27,7 +26,7 @@ class RegisterFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.register_activity, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +63,6 @@ class RegisterFragment : Fragment() {
                 ivCreateGroup.setImageResource(R.drawable.ic_launcher_background)
             }
             else {
-                Log.d("ivReg", "Pressed")
                 askCameraPermission()
             }
             hasPicture = !hasPicture
@@ -110,6 +108,6 @@ class RegisterFragment : Fragment() {
                 && etRegUsername.text.isNotEmpty()
                 && etRegEmail.text.isNotEmpty()
                 && etRegPassword.text.isNotEmpty()
-                //&& etRegRepeatPassword.text == etRegPassword.text
+                && etRegRepeatPassword.text == etRegPassword.text
     }
 }

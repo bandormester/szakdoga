@@ -36,7 +36,6 @@ class RegisterRepositry (
             override fun onResponse(call: Call<RegistrationStatus>, response: Response<RegistrationStatus>) {
                 if (response.isSuccessful) {
                     status!!.value = response.body()
-                    Log.d("vm",response.body()!!.successful.toString())
                 }else{
                     Log.d("Register", response.body().toString())
                     Log.d("Register", response.code().toString())

@@ -1,7 +1,6 @@
 package hu.szurdok.todoapp.ui.view.main.group
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,9 @@ import hu.szurdok.todoapp.data.adapters.GroupMemberAdapter
 import hu.szurdok.todoapp.data.models.User
 import hu.szurdok.todoapp.ui.view.main.MainActivity
 import hu.szurdok.todoapp.viewmodel.main.group.GroupDetailsViewModel
-import kotlinx.android.synthetic.main.group_details_fragment.*
+import kotlinx.android.synthetic.main.fragment_group_details.*
 
-class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListener {
+class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListener, GroupMemberAdapter.MemberItemRemoveClickListener {
 
     private lateinit var groupDetailsViewModel: GroupDetailsViewModel
 
@@ -24,19 +23,20 @@ class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListe
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.group_details_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_group_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        lvMembers.layoutManager = LinearLayoutManager(activity)
 
         groupDetailsViewModel = (activity as MainActivity).mainContainer.groupDetailsViewModelFactory
             .create((activity as MainActivity).token, (activity as MainActivity).groupId, (activity as MainActivity))
 
         groupDetailsViewModel.group.observe(viewLifecycleOwner){
             tvGroupName.text = it.name
+            if(it.hasPicture){
+                groupDetailsViewModel.getGroupPicture(it.id, ivGroupDetailsPic, requireContext())
+            }
         }
 
         groupDetailsViewModel.members.observe(viewLifecycleOwner){
@@ -54,8 +54,8 @@ class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListe
     }
 
     private fun setupRecyclerView(members : List<User>){
-        val groupAdapter = GroupMemberAdapter(requireActivity())
-        Log.d("retrofit", members.size.toString())
+        lvMembers.layoutManager = LinearLayoutManager(activity)
+        val groupAdapter = GroupMemberAdapter(groupDetailsViewModel, requireContext())
         groupAdapter.addAll(members)
         groupAdapter.itemClickListener = this
         lvMembers.adapter = groupAdapter
@@ -66,6 +66,6 @@ class GroupDetailsFragment : Fragment(), GroupMemberAdapter.MemberItemClickListe
     }
 
     override fun onMemberRemoved(member: User) {
-        groupDetailsViewModel.removeMember((activity as MainActivity).groupId, (activity as MainActivity).token, member.id)
+        groupDetailsViewModel.removeMember(member.id)
     }
 }

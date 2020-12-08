@@ -6,7 +6,7 @@ import hu.szurdok.todoapp.data.repository.main.GroupDetailsRepository
 import hu.szurdok.todoapp.viewmodel.main.group.GroupDetailsViewModel
 
 class GroupDetailsViewModelFactory(private val groupDetailsRepository: GroupDetailsRepository)  {
-    fun create(token : ApiToken, groupdId : Int, context : Context): GroupDetailsViewModel {
-        return GroupDetailsViewModel(groupDetailsRepository, token, groupdId, context)
+    fun create(token : ApiToken, groupId : Int, context : Context): GroupDetailsViewModel {
+        return GroupDetailsViewModel(groupDetailsRepository, token, groupId, context)
     }
 }

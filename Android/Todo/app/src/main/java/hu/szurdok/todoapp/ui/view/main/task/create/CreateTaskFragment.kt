@@ -25,7 +25,7 @@ import hu.szurdok.todoapp.data.adapters.SelectMemberAdapter
 import hu.szurdok.todoapp.data.models.User
 import hu.szurdok.todoapp.ui.view.main.MainActivity
 import hu.szurdok.todoapp.viewmodel.main.task.CreateTaskViewModel
-import kotlinx.android.synthetic.main.create_task_fragment.*
+import kotlinx.android.synthetic.main.fragment_create_task.*
 
 class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListener,
     ChecklistAdapter.CheckItemClickListener {
@@ -38,7 +38,7 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.create_task_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_create_task, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,8 +69,35 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
             handleImportanceSwitch(it as CardView)
         }
 
+        //Label
+        etCreateTaskLabel.doOnTextChanged{text, _, _, _ ->
+            createTaskViewModel.setLabel(text.toString())
+
+        }
+
         //Description
         if(!createTaskViewModel.descriptionAdded) etCreateDescription.visibility = GONE
+        setupDescriptionAdding()
+
+        //Place
+        if(!createTaskViewModel.placeAdded) llCreatePlace.visibility = GONE
+        setupPlaceAdding()
+
+        //Person
+        if(!createTaskViewModel.personAdded) llCreatePerson.visibility = GONE
+        setupPersonAdding()
+
+        //Checklist
+        if(!createTaskViewModel.checklistAdded) llCreateChecklist.visibility = GONE
+        setupChecklistAdding()
+
+        //CreateButton
+        btFinalizeTask.setOnClickListener {
+            createTaskViewModel.createTask()
+        }
+    }
+
+    private fun setupDescriptionAdding(){
         setText(tvCreateDescription, createTaskViewModel.descriptionAdded, getString(R.string.description))
         tvCreateDescription.setOnClickListener {
             createTaskViewModel.descriptionAdded = showInputView(etCreateDescription, createTaskViewModel.descriptionAdded)
@@ -79,9 +106,9 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         etCreateDescription.doOnTextChanged { text, _, _, _ ->
             createTaskViewModel.setDescription(text.toString())
         }
+    }
 
-        //Place
-        if(!createTaskViewModel.placeAdded) llCreatePlace.visibility = GONE
+    private fun setupPlaceAdding(){
         setText(tvCreatePlace, createTaskViewModel.placeAdded, getString(R.string.location))
         tvCreatePlace.setOnClickListener {
             createTaskViewModel.placeAdded = showInputView(llCreatePlace, createTaskViewModel.placeAdded)
@@ -91,23 +118,23 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
             val intent = Intent(activity, CreateMapActivity::class.java)
             startActivityForResult(intent, 420)
         }
+    }
 
-        //Person
-        if(!createTaskViewModel.personAdded) llCreatePerson.visibility = GONE
+    private fun setupPersonAdding(){
         setText(tvCreatePerson, createTaskViewModel.personAdded, getString(R.string.assignee))
         tvCreatePerson.setOnClickListener {
             createTaskViewModel.personAdded = showInputView(llCreatePerson, createTaskViewModel.personAdded)
             setText(tvCreatePerson, createTaskViewModel.personAdded, getString(R.string.assignee))
-            if(createTaskViewModel.personAdded) setupPersonAdding()
+            if(createTaskViewModel.personAdded) observeMembers()
         }
+    }
 
-        //Checklist
-        if(!createTaskViewModel.checklistAdded) llCreateChecklist.visibility = GONE
+    private fun setupChecklistAdding(){
         setText(tvCreateChecklist, createTaskViewModel.checklistAdded, getString(R.string.checklist))
         tvCreateChecklist.setOnClickListener {
             createTaskViewModel.checklistAdded = showInputView(llCreateChecklist, createTaskViewModel.checklistAdded)
             setText(tvCreateChecklist, createTaskViewModel.checklistAdded, getString(R.string.checklist))
-            if(createTaskViewModel.checklistAdded) setupChecklistAdding()
+            if(createTaskViewModel.checklistAdded) setupChecklistRecycler()
             Log.d("recview", createTaskViewModel.checklistAdded.toString())
         }
         btCreateChecklist.setOnClickListener {
@@ -115,25 +142,19 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
             checkAdapter.add(check)
             createTaskViewModel.addCheck(check)
         }
-
-        //CreateButton
-        btFinalizeTask.setOnClickListener {
-            createTaskViewModel.createTask()
-        }
     }
 
     private fun handleImportanceSwitch(view : CardView){
         resetImportance()
         view.setContentPadding(border,border,border,border)
-        var importance = Importance.IMPORTANT
         when(view){
-            cvCrucial -> importance = Importance.CRUCIAL
-            cvRegular -> importance = Importance.REGULAR
+            cvCrucial -> createTaskViewModel.setImportance(Importance.CRUCIAL)
+            cvRegular -> createTaskViewModel.setImportance(Importance.REGULAR)
+            cvImportant -> createTaskViewModel.setImportance(Importance.IMPORTANT)
         }
-        createTaskViewModel.setImportance(importance)
     }
 
-    private fun setupChecklistAdding(){
+    private fun setupChecklistRecycler(){
         Log.d("recview","checklist lefut")
         checkAdapter.itemClickListener = this
         checkAdapter.addAll(createTaskViewModel.getChecklist())
@@ -141,17 +162,17 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         rvCreateChecklist.adapter = checkAdapter
     }
 
-    private fun setupPersonAdding() {
+    private fun observeMembers() {
         createTaskViewModel.getMembers()
         Log.d("recview", "setup person adding")
         createTaskViewModel.members.observe(viewLifecycleOwner){
             Log.d("recview", "members observed")
-            setupPersonAddingRecycler(it)
+            setupPersonRecycler(it)
         }
     }
 
-    private fun setupPersonAddingRecycler(members : List<User>){
-        val adapter = SelectMemberAdapter(requireActivity())
+    private fun setupPersonRecycler(members : List<User>){
+        val adapter = SelectMemberAdapter(createTaskViewModel, requireContext())
         adapter.itemClickListener = this
         adapter.addAll(members, createTaskViewModel.getSelectedMembers())
         lvCreatePerson.layoutManager = LinearLayoutManager(activity)
@@ -164,7 +185,6 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
         }else{
             view.visibility = VISIBLE
         }
-
         return !visible
     }
 
@@ -194,10 +214,6 @@ class CreateTaskFragment : Fragment(), SelectMemberAdapter.MemberItemClickListen
 
     override fun onMemberExcluded(member: User) {
         createTaskViewModel.excludeMember(member)
-    }
-
-    override fun onTextEdited(check: Check) {
-       // createTaskViewModel.editCheck(check)
     }
 
     override fun onCheckChecked(check: Check) {

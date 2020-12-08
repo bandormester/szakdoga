@@ -39,16 +39,15 @@ class BrowseTasksRepository(
                         taskCardDao.clearTable()
                         taskCardDao.saveAll(response.body()!!)
                     }
-                    Log.d("retrofit", response.body()!![0].id.toString())
                 } else{
-                    Log.d("retrofit", response.message())
-                    Log.d("retorift", response.toString())
+                    Log.d("Browse", response.message())
+                    Log.d("Browse", response.toString())
                 }
             }
 
             override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
-                Log.d("retrofit", t.message.toString())
-                Log.d("retorift", t.toString())
+                Log.d("Browse", t.message.toString())
+                Log.d("Browse", t.toString())
             }
 
         })
@@ -62,18 +61,16 @@ class BrowseTasksRepository(
                             taskCardDao.clearTable()
                             taskCardDao.saveAll(response.body()!!)
                         }
-                        Log.d("retrofit", response.body()!![0].id.toString())
                     } else{
-                        Log.d("retrofit", response.message())
-                        Log.d("retorift", response.toString())
+                        Log.d("Browse", response.message())
+                        Log.d("Browse", response.toString())
                     }
                 }
 
                 override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
-                    Log.d("retrofit", t.message.toString())
-                    Log.d("retorift", t.toString())
+                    Log.d("Browse", t.message.toString())
+                    Log.d("Browse", t.toString())
                 }
-
             })
     }
 
@@ -85,16 +82,15 @@ class BrowseTasksRepository(
                             taskCardDao.clearTable()
                             taskCardDao.saveAll(response.body()!!)
                         }
-                        Log.d("retrofit", response.body()!![0].id.toString())
                     } else{
-                        Log.d("retrofit", response.message())
-                        Log.d("retorift", response.toString())
+                        Log.d("Browse", response.message())
+                        Log.d("Browse", response.toString())
                     }
                 }
 
                 override fun onFailure(call: Call<List<TaskCard>>, t: Throwable) {
-                    Log.d("retrofit", t.message.toString())
-                    Log.d("retorift", t.toString())
+                    Log.d("Browse", t.message.toString())
+                    Log.d("Browse", t.toString())
                 }
 
             })

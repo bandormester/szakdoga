@@ -8,7 +8,7 @@ import hu.szurdok.todoapp.data.models.Group
 import hu.szurdok.todoapp.data.models.TaskCard
 
 @Database(entities = [Group::class, Task::class, TaskCard::class], version = 1)
-@TypeConverters(ImportanceTypeConverter::class)
+@TypeConverters(TypeConverter::class)
 abstract class GroupDatabase : RoomDatabase(){
     abstract fun groupDao(): GroupDao
     abstract fun taskDao(): TaskDao

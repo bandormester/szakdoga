@@ -3,9 +3,11 @@ package hu.szurdok.todoapp.viewmodel.login
 import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.google.common.hash.Hashing
 import hu.szurdok.todoapp.data.models.misc.RegistrationStatus
 import hu.szurdok.todoapp.data.repository.login.RegisterRepositry
 import java.io.ByteArrayOutputStream
+import java.nio.charset.StandardCharsets
 
 class RegisterViewModel (
     private val registerRepository: RegisterRepositry
@@ -21,7 +23,9 @@ class RegisterViewModel (
             picture = stream.toByteArray()
         }
 
-        registerRepository.register(picture, fullname, username, email, password, hasPicture)
+        val codedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString()
+
+        registerRepository.register(picture, fullname, username, email, codedPassword, hasPicture)
     }
 
     protected fun finalize(){

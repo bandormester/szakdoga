@@ -1,6 +1,6 @@
 package hu.szurdok.todoapp.data.adapters
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.data.models.Check
-import kotlinx.android.synthetic.main.checklist_item.view.*
+import kotlinx.android.synthetic.main.item_checklist.view.*
 
 class ChecklistAdapter(private val editable : Boolean) : RecyclerView.Adapter<ChecklistAdapter.CheckHolder>() {
 
@@ -18,7 +18,6 @@ class ChecklistAdapter(private val editable : Boolean) : RecyclerView.Adapter<Ch
     var itemClickListener : CheckItemClickListener? = null
 
     interface CheckItemClickListener {
-        fun onTextEdited(check: Check)
         fun onCheckChecked(check: Check)
     }
 
@@ -30,9 +29,6 @@ class ChecklistAdapter(private val editable : Boolean) : RecyclerView.Adapter<Ch
         init {
             if(!editable) description.isEnabled = false
 
-            v.setOnClickListener {
-                Log.d("click", "clicked! ! !")
-            }
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if(isChecked){
                     check?.let { itemClickListener?.onCheckChecked(it) }
@@ -42,7 +38,6 @@ class ChecklistAdapter(private val editable : Boolean) : RecyclerView.Adapter<Ch
             description.doOnTextChanged { text, _, _, _ ->
                 if(editable){
                     check?.description = text.toString()
-                    check?.let { itemClickListener?.onTextEdited(it) }
                 }
             }
         }
@@ -50,7 +45,7 @@ class ChecklistAdapter(private val editable : Boolean) : RecyclerView.Adapter<Ch
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.checklist_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_checklist, parent, false)
         return CheckHolder(view)
     }
 

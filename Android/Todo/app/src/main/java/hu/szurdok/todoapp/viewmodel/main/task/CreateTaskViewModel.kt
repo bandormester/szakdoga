@@ -1,5 +1,7 @@
 package hu.szurdok.todoapp.viewmodel.main.task
 
+import android.content.Context
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -10,12 +12,13 @@ import hu.szurdok.todoapp.data.models.Check
 import hu.szurdok.todoapp.data.repository.main.CreateTaskRepository
 import hu.szurdok.todoapp.data.models.Task
 import hu.szurdok.todoapp.data.models.User
+import hu.szurdok.todoapp.viewmodel.main.ImageLoadingViewModel
 
 class CreateTaskViewModel(
     private val createTaskRepository: CreateTaskRepository,
     private val token : ApiToken,
     private val groupId : Int
-) : ViewModel() {
+) : ViewModel(), ImageLoadingViewModel {
     val creationStatus : LiveData<RegistrationStatus> = createTaskRepository.subscribeStatus()
     lateinit var members : LiveData<List<User>>
 
@@ -83,8 +86,16 @@ class CreateTaskViewModel(
         newTask!!.lon = latLng.longitude
     }
 
+    fun setLabel(words : String){
+        newTask!!.label = words
+    }
+
     fun setImportance(importance: Importance){
         newTask!!.importance = importance
+    }
+
+    override fun getPicture(id: Int, imageView: ImageView, context: Context) {
+        createTaskRepository.getPicture(id, imageView, context)
     }
 
     protected fun finalize(){

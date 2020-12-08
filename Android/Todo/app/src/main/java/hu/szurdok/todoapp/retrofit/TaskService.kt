@@ -42,4 +42,14 @@ interface TaskService {
         @Path("checkId") checkId : Int,
         @Query("isChecked") isChecked : Boolean
     ) : Call<Void>
+
+    @DELETE("/task/id/{taskId}")
+    fun finishTask(
+        @Path("taskId") taskId : Int
+    ) : Call<Void>
+
+    @GET("/user/{userId}/pic")
+    fun getPicture(
+        @Path("userId") userId: Int
+    ) : Call<Array<Byte>>
 }

@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivGroupDetailsPic"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_margin="24dp"
@@ -26,7 +26,7 @@
         android:textStyle="bold"
         android:text="Name"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ivGroupDetailsPic" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

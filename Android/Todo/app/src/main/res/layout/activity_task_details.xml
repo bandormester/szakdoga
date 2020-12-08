@@ -43,7 +43,7 @@
               android:visibility="gone"
               android:layout_marginTop="20dp"
               style="@style/DescriptionText"
-              android:textSize="20dp"
+              android:textSize="20sp"
               android:gravity="center_horizontal"
               android:padding="4dp"
               android:lineSpacingMultiplier="1.1"
@@ -72,25 +72,14 @@
 
    <Button
        android:id="@+id/btFinishTask"
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_marginVertical="20dp"
+       android:layout_marginHorizontal="80dp"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toStartOf="@id/btCancelTask"
-       app:layout_constraintBottom_toBottomOf="parent"
-       android:background="@drawable/button_finish_task"
-       android:textColor="@color/regular"
-       android:text="Finish"/>
-
-   <Button
-       android:id="@+id/btCancelTask"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       app:layout_constraintTop_toTopOf="@id/btFinishTask"
-       app:layout_constraintStart_toEndOf="@id/btFinishTask"
        app:layout_constraintEnd_toEndOf="parent"
-       android:background="@drawable/button_cancel_task"
-       android:textColor="@color/crucial"
-       android:text="Cancel"/>
+       app:layout_constraintBottom_toBottomOf="parent"
+       style="@style/LightBlueOutlinedButton"
+       android:text="@string/finish"/>
 
    </androidx.constraintlayout.widget.ConstraintLayout>

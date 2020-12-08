@@ -3,7 +3,6 @@ package hu.szurdok.todoapp.ui.view.main.task
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import hu.szurdok.todoapp.data.adapters.BrowseTasksAdapter
 import hu.szurdok.todoapp.data.models.TaskCard
 import hu.szurdok.todoapp.ui.view.main.MainActivity
 import hu.szurdok.todoapp.viewmodel.main.task.BrowseTasksViewModel
-import kotlinx.android.synthetic.main.browse_tasks_fragment.*
+import kotlinx.android.synthetic.main.fragment_browse_tasks.*
 
 class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener {
 
@@ -27,7 +26,7 @@ class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View {
-            return inflater.inflate(R.layout.browse_tasks_fragment, container, false)
+            return inflater.inflate(R.layout.fragment_browse_tasks, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +51,6 @@ class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener
                 (activity as MainActivity).mainContainer.browseTasksViewModelFactory.create((activity as MainActivity).token, (activity as MainActivity).groupId)
 
             browseTasksViewModel.tasks.observe(viewLifecycleOwner) {
-                Log.d("bug", it.size.toString())
                 setupRecyclerView(it)
             }
         }
@@ -71,7 +69,6 @@ class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener
             }
 
             rvBrowseTasks.layoutManager = gridManager
-
             rvBrowseTasks.adapter = tasksAdapter
         }
 
@@ -91,8 +88,6 @@ class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener
     override fun onTaskSelected(task: TaskCard) {
         val intent = Intent(activity, TaskDetailsActivity::class.java).apply {
             putExtra("taskCard", task)
-            putExtra("api-token", (activity as MainActivity).token)
-            Log.d("retrofit", task.id.toString())
         }
         startActivity(intent)
     }

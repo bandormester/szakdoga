@@ -1,10 +1,7 @@
 package hu.szurdok.todoapp.data.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import hu.szurdok.todoapp.data.models.Task
 
 @Dao
@@ -18,12 +15,9 @@ interface TaskDao {
     @Query("SELECT * FROM `task`")
     fun load() : LiveData<List<Task>>
 
-    @Query("SELECT EXISTS(SELECT * FROM `task` WHERE id=:id)")
-    fun isRowExists(id : Int) : Boolean
-
-    @Query("DELETE FROM `task`")
-    fun clearTable()
-
     @Query("SELECT * FROM `task` WHERE id=:id")
     fun loadById(id : Int) : LiveData<Task?>
+
+    @Query("DELETE FROM `task` WHERE id=:id")
+    fun delete(id : Int)
 }

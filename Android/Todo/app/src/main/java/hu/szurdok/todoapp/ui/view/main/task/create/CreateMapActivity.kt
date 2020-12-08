@@ -92,7 +92,6 @@ class CreateMapActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
-                    Log.d("maps", "result error")
                     data?.let {
                         val status = Autocomplete.getStatusFromIntent(data)
                         Log.i("maps", status.statusMessage?:"")

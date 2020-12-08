@@ -5,16 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.request.RequestOptions
 import hu.szurdok.todoapp.R
 import hu.szurdok.todoapp.data.models.Group
 import hu.szurdok.todoapp.viewmodel.main.group.ChooseGroupViewModel
-import kotlinx.android.synthetic.main.group_item.view.*
+import kotlinx.android.synthetic.main.item_group.view.*
 
-class ChooseGroupAdapter(val context : Context) : RecyclerView.Adapter<ChooseGroupAdapter.GroupViewHolder>() {
+class ChooseGroupAdapter(private val viewModel : ChooseGroupViewModel, val context : Context) : RecyclerView.Adapter<ChooseGroupAdapter.GroupViewHolder>() {
 
     private var groups = mutableListOf<Group>()
     var itemClickListener : GroupItemClickListener? = null
@@ -33,7 +29,7 @@ class ChooseGroupAdapter(val context : Context) : RecyclerView.Adapter<ChooseGro
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
-        val view =LayoutInflater.from(parent.context).inflate(R.layout.group_item, parent, false)
+        val view =LayoutInflater.from(parent.context).inflate(R.layout.item_group, parent, false)
         return GroupViewHolder(view)
     }
 
@@ -44,23 +40,11 @@ class ChooseGroupAdapter(val context : Context) : RecyclerView.Adapter<ChooseGro
 
 
         if(holder.group!!.hasPicture){
-            val glideUrl = GlideUrl("http://86.59.209.1:8080/group/"+holder.group!!.id+"/pic")
-            val option = RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)
-            Glide.with(context)
-                .load(glideUrl)
-                .centerCrop()
-                .apply(option)
-                .into(holder.image)
+            viewModel.getGroupPicture(holder.group!!.id, holder.image, context)
         }
     }
 
     override fun getItemCount() = groups.size
-
-    fun clear(){
-        val size = itemCount
-        groups.clear()
-        notifyItemRangeChanged(size, 0)
-    }
 
     fun addAll(list : List<Group>){
         val size = itemCount

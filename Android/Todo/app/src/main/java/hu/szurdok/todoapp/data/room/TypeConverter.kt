@@ -6,7 +6,7 @@ import hu.szurdok.todoapp.data.models.misc.Importance
 import hu.szurdok.todoapp.data.models.Check
 import hu.szurdok.todoapp.data.models.User
 
-class ImportanceTypeConverter {
+class TypeConverter {
     @TypeConverter
     fun fromImportance(value: Importance): Int {
         return value.ordinal
@@ -22,14 +22,6 @@ class ImportanceTypeConverter {
         return importance
     }
 
-    @TypeConverter
-    fun listToJson(value: List<Int>?): String = Gson().toJson(value)
-
-    @TypeConverter
-    fun jsonToList(value: String) : List<Int> {
-        val array = Gson().fromJson(value, Array<Int>::class.java)?:emptyArray()
-        return array.toList()
-    }
     @TypeConverter
     fun checklistToJson(value: List<Check>?): String = Gson().toJson(value)
 

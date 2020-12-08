@@ -18,6 +18,6 @@ interface GroupDao{
     @Query("SELECT * FROM `group`")
     fun load() : LiveData<List<Group>>
 
-    @Query("SELECT * FROM `group` WHERE id=:userId")
-    fun loadById(userId: Int) : LiveData<Group>
+    @Query("SELECT * FROM `group` WHERE id=:groupId")
+    fun loadById(groupId: Int) : LiveData<Group>
 }

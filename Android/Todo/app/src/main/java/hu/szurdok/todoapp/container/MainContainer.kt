@@ -18,13 +18,13 @@ class MainContainer(app: TodoApplication) {
     private val gson = GsonBuilder().setLenient().create()
 
     private val groupService =
-        Retrofit.Builder().baseUrl("http://86.59.209.1:8080")
+        Retrofit.Builder().baseUrl("http://84.0.25.32:8080")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(GroupService::class.java)
 
     private val taskService =
-        Retrofit.Builder().baseUrl("http://86.59.209.1:8080")
+        Retrofit.Builder().baseUrl("http://84.0.25.32:8080")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build().create(TaskService::class.java)

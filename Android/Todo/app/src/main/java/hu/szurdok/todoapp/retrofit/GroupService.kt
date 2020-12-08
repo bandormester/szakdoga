@@ -32,8 +32,9 @@ interface GroupService {
         @Query("hasPicture") hasPicture : Boolean
         ) : Call<String>
 
-    @GET("/groupd/{groupId/pic")
-    fun getPicture(
-        @Path("groupId") groupId: Int
-    ) : Call<ByteArray>
+    @PUT("/group")
+    fun joinGroup(
+        @Query("code") code: String,
+        @Query("userId") userId: Int
+    ) : Call<Void>
 }
