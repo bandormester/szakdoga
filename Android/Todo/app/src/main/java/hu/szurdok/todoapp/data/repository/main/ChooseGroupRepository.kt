@@ -75,6 +75,7 @@ class ChooseGroupRepository(
                 override fun onResponse(call: Call<List<Group>>, response: Response<List<Group>>) {
                     if (response.isSuccessful) {
                         executor.execute {
+                            groupDao.clear()
                             groupDao.saveAll(response.body()!!)
                         }
                     } else Log.d("Join", "sikertelen")

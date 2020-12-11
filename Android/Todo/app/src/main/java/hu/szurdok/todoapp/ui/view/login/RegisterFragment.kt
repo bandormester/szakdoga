@@ -60,7 +60,7 @@ class RegisterFragment : Fragment() {
 
         ivCreateGroup.setOnClickListener{
             if(hasPicture){
-                ivCreateGroup.setImageResource(R.drawable.ic_launcher_background)
+                ivCreateGroup.setImageResource(R.drawable.ic_baseline_add_a_photo_24)
             }
             else {
                 askCameraPermission()
@@ -108,6 +108,6 @@ class RegisterFragment : Fragment() {
                 && etRegUsername.text.isNotEmpty()
                 && etRegEmail.text.isNotEmpty()
                 && etRegPassword.text.isNotEmpty()
-                && etRegRepeatPassword.text == etRegPassword.text
+                && etRegRepeatPassword.text.toString() == etRegPassword.text.toString()
     }
 }

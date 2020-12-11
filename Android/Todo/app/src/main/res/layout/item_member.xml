@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toStartOf="@id/ivRemoveMember"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/outlined_blue_rounded_button">
+        android:background="@drawable/button_outlined_blue_rounded">
 
         <TextView
             android:id="@+id/tvMemberName"

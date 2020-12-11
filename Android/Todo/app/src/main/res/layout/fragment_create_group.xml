@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_baseline_add_a_photo_24"
         android:layout_height="120dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"

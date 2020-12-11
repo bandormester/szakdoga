@@ -15,6 +15,9 @@ interface GroupDao{
     @Insert(onConflict = REPLACE)
     fun saveAll(group : List<Group>)
 
+    @Query("DELETE FROM `group`")
+    fun clear()
+
     @Query("SELECT * FROM `group`")
     fun load() : LiveData<List<Group>>
 

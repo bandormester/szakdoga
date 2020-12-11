@@ -8,19 +8,19 @@
     </style>
 
     <style name="WhiteOutlinedButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/outlined_white_rounded_button</item>
+        <item name="android:background">@drawable/button_outlined_white_rounded</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/light_blue</item>
     </style>
 
     <style name="LightBlueOutlinedButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/outlined_blue_rounded_button</item>
+        <item name="android:background">@drawable/button_outlined_blue_rounded</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="LightBlueButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/blue_rounded_button</item>
+        <item name="android:background">@drawable/button_blue_rounded</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white</item>
     </style>

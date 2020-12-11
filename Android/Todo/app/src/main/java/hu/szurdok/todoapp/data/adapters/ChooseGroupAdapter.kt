@@ -35,7 +35,7 @@ class ChooseGroupAdapter(private val viewModel : ChooseGroupViewModel, val conte
 
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         holder.group = groups[position]
-        holder.image.setImageResource(R.drawable.ic_launcher_background)
+        holder.image.setImageResource(R.mipmap.pugo)
         holder.name.text = holder.group!!.name
 
 

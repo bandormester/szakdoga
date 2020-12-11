@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/outlined_blue_rounded_button">
+        android:background="@drawable/button_outlined_blue_rounded">
 
         <TextView
             android:id="@+id/tvMemberName"

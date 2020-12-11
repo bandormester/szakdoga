@@ -73,15 +73,15 @@ class BrowseTasksFragment : Fragment(), BrowseTasksAdapter.TaskItemClickListener
         }
 
     private fun switchButton(button : Button){
-        btMineTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.outlined_blue_rounded_button, null)
-        btOwnedTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.outlined_blue_rounded_button,null)
-        btAllTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.outlined_blue_rounded_button,null)
+        btMineTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.button_outlined_blue_rounded, null)
+        btOwnedTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.button_outlined_blue_rounded,null)
+        btAllTasks.background = ResourcesCompat.getDrawable(resources, R.drawable.button_outlined_blue_rounded,null)
         
         btMineTasks.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
         btOwnedTasks.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
         btAllTasks.setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
         
-        button.background = ResourcesCompat.getDrawable(resources, R.drawable.outlined_white_rounded_button, null)
+        button.background = ResourcesCompat.getDrawable(resources, R.drawable.button_outlined_white_rounded, null)
         button.setTextColor(ResourcesCompat.getColor(resources, R.color.light_blue, null))
     }
 
