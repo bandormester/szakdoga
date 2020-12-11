@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +39,20 @@ public class GroupService {
 
     public ResponseEntity<List<TodoGroup>> getMyGroups(Integer userId){
 
-        List<TodoGroup> list = groupRepository.findByOwnerId(userId);
+        List<TodoGroup> list = groupRepository.findAll();
+        List<TodoGroup> result = new ArrayList<>();
 
-        return ResponseEntity.ok().body(list);
+        for(TodoGroup tg : list){
+            if (tg.getOwnerId().equals(userId))
+                result.add(tg);
+        }
+
+        List<TodoGroup> groups = em.createQuery("SELECT g FROM TodoGroup g WHERE g.id IN (SELECT m.groupId FROM Member m WHERE m.userId = :id)", TodoGroup.class)
+                .setParameter("id",userId).getResultList();
+
+        result.addAll(groups);
+
+        return ResponseEntity.ok().body(result);
     }
 
     public ResponseEntity<TodoGroup> getGroup(Integer groupId) {
@@ -86,6 +98,17 @@ public class GroupService {
 
     public ResponseEntity<String> createGroup(byte[] picture, String groupName, Integer ownerId, String description, String joinCode, Boolean hasPicture) {
         TodoGroup group = new TodoGroup(null, groupName, ownerId, description, joinCode, hasPicture);
+
+        if(group.getJoinCode().isBlank()) {
+            int length = 12;
+            String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            StringBuilder sb = new StringBuilder(length);
+            for (int i = 0; i < length; i++) {
+                int index = (int)(abc.length() * Math.random());
+                sb.append(abc.charAt(index));
+            }
+            group.setJoinCode(sb.toString());
+        }
 
         try {
             groupRepository.save(group);
